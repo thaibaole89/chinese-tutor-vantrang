@@ -236,18 +236,28 @@ function normalizeWeChatCoach(
 }
 
 function mockWeChatCoach(userInput: string): WeChatCoachResult {
-  // Detect intent from input keywords to vary the mock — feels less generic.
+  // Detect lifestyle intent from input keywords. Buckets cover the 6 use
+  // cases in the Vân Trang spec: hotel staff / restaurant staff / directions /
+  // friend chat / drama-social comment / shop owner price.
   const lower = userInput.toLowerCase();
-  const isMou =
-    /mou|hợp tác|scope|exclusiv|sla|hỗ trợ kỹ thuật|hợp đồng|合作|协议|合同/.test(lower);
-  const isProgress =
-    /tiến độ|progress|status|blocker|risk|rủi ro|deadline|进度|延期|风险/.test(lower);
-  const isVip =
-    /vip|đón|sân bay|khách sạn|airport|hotel|reception|接待|机场|酒店/.test(lower);
+  const isHotel =
+    /khách sạn|nhận phòng|trả phòng|hotel|check-?in|wifi|押金|入住|退房|酒店|前台/.test(lower);
+  const isRestaurant =
+    /quán|gọi món|menu|món|nhà hàng|restaurant|餐厅|点菜|菜单|服务员|买单|cay|辣/.test(lower);
+  const isDirections =
+    /đường|metro|taxi|tàu|hỏi đường|làm sao|怎么走|地铁|路|出租|打车|công viên|cố cung|故宫/.test(lower);
+  const isShopping =
+    /chợ|mua|mặc cả|giá|đắt|rẻ|shop|价格|便宜|多少钱|砍价|店|night market|夜市/.test(lower);
+  const isDrama =
+    /phim|drama|tập|nhân vật|diễn viên|cổ trang|hiện đại|演员|这剧|追剧|好看|帅|颜值/.test(lower);
+  const isSocial =
+    /weibo|xiaohongshu|小红书|douyin|抖音|微博|caption|hashtag|reply|comment|评论|点赞/.test(lower);
 
-  if (isMou) return mockMou(userInput);
-  if (isProgress) return mockProgress(userInput);
-  if (isVip) return mockVip(userInput);
+  if (isHotel) return mockHotel(userInput);
+  if (isRestaurant) return mockRestaurant(userInput);
+  if (isDirections) return mockDirections(userInput);
+  if (isShopping) return mockShopping(userInput);
+  if (isDrama || isSocial) return mockDramaSocial(userInput);
   return mockGeneric(userInput);
 }
 
@@ -260,208 +270,334 @@ function mkVocab(items: Array<[string, string, string]>): WeChatCoachResult["key
     synonyms: [],
     exampleZh: "",
     exampleVi: "",
-    tags: ["wechat", "business"],
+    tags: ["wechat", "lifestyle"],
     frequencyLevel: "high",
   }));
 }
 
-function mockMou(userInput: string): WeChatCoachResult {
-  return {
-    originalInput: userInput,
-    versions: [
-      {
-        tone: "friendly",
-        zh: "您好王总，咱们 MOU 的合作范围、时间表和技术支持费这几点，我想再跟您对一下。",
-        pinyin:
-          "nín hǎo Wáng zǒng, zánmen MOU de hézuò fànwéi, shíjiānbiǎo hé jìshù zhīchí fèi zhè jǐ diǎn, wǒ xiǎng zài gēn nín duì yīxià.",
-        vi: "Chào anh Vương, về MOU em muốn rà lại 3 điểm với anh: scope hợp tác, timeline, và phí hỗ trợ kỹ thuật.",
-        usageNoteVi: "WeChat đã quen anh Vương vài tuần — dùng 您 + 咱们 vừa thân vừa giữ tôn trọng.",
-        riskNoteVi: "Phù hợp nếu đã ký NDA và đang trong giai đoạn term sheet. Hơi quá thân nếu first-contact.",
-      },
-      {
-        tone: "polite",
-        zh: "王总您好，关于 MOU 的合作范围、时间表、技术支持费以及 SLA，几个细节想跟您确认。方便的话今天稍后能否聊 15 分钟？",
-        pinyin:
-          "Wáng zǒng nín hǎo, guānyú MOU de hézuò fànwéi, shíjiānbiǎo, jìshù zhīchí fèi yǐjí SLA, jǐ ge xìjié xiǎng gēn nín quèrèn. Fāngbiàn de huà jīntiān shāohòu néng fǒu liáo 15 fēnzhōng?",
-        vi: "Chào sếp Vương, em muốn xác nhận một vài chi tiết MOU: scope, timeline, phí hỗ trợ kỹ thuật và SLA. Tiện thì hôm nay 15 phút được không?",
-        usageNoteVi: "Business-standard. Đầy đủ 4 hạng mục + đề xuất thời lượng cụ thể (15 phút) — đối phương dễ accept.",
-        riskNoteVi: "Hợp hầu hết tình huống business WeChat. Không quá soft, không quá direct.",
-      },
-      {
-        tone: "firm",
-        zh: "王总您好，MOU 的合作范围、独家合作条款、技术支持费和 SLA 我们这边需要在本周三前定稿。烦请今明两天给我具体反馈，便于推进下一步。",
-        pinyin:
-          "Wáng zǒng nín hǎo, MOU de hézuò fànwéi, dújiā hézuò tiáokuǎn, jìshù zhīchí fèi hé SLA wǒmen zhèbiān xūyào zài běn zhōusān qián dìnggǎo. Fánqǐng jīn-míng liǎng tiān gěi wǒ jùtǐ fǎnkuì, biàn yú tuījìn xià yī bù.",
-        vi: "Chào sếp Vương, MOU (scope, điều khoản độc quyền, phí hỗ trợ kỹ thuật, SLA) bên em cần chốt trước thứ Tư tuần này. Mong anh phản hồi cụ thể trong 1-2 ngày tới để chốt bước tiếp.",
-        usageNoteVi: "Firm — đưa deadline rõ + lý do (推进下一步). Dùng 烦请 thay vì 请 cho lịch sự cứng.",
-        riskNoteVi: "OK khi đã trao đổi nhiều vòng. Tránh dùng ở first-contact hoặc với khách hàng VIP cấp C-suite.",
-      },
-    ],
-    corporateToneScore: 7,
-    clarityScore: 8,
-    naturalnessScore: 7,
-    suggestedVocabulary: [
-      { hanzi: "合作范围", pinyin: "hézuò fànwéi", vi: "phạm vi hợp tác / scope" },
-      { hanzi: "独家合作", pinyin: "dújiā hézuò", vi: "hợp tác độc quyền / exclusivity" },
-      { hanzi: "技术支持费", pinyin: "jìshù zhīchí fèi", vi: "phí hỗ trợ kỹ thuật" },
-      { hanzi: "服务水平协议", pinyin: "fúwù shuǐpíng xiéyì", vi: "SLA" },
-      { hanzi: "定稿", pinyin: "dìnggǎo", vi: "chốt nội dung cuối" },
-    ],
-    keyVocabulary: mkVocab([
-      ["MOU", "MOU", "biên bản ghi nhớ hợp tác"],
-      ["合作范围", "hézuò fànwéi", "scope hợp tác"],
-      ["时间表", "shíjiānbiǎo", "lịch / timeline"],
-      ["技术支持费", "jìshù zhīchí fèi", "phí hỗ trợ kỹ thuật"],
-      ["SLA", "SLA", "service level agreement"],
-    ]),
-    followUpQuestion: {
-      zh: "技术支持费您这边是按月还是按项目算？",
-      pinyin: "Jìshù zhīchí fèi nín zhèbiān shì àn yuè háishì àn xiàngmù suàn?",
-      vi: "Phí hỗ trợ kỹ thuật anh tính theo tháng hay theo project?",
-    },
-    partnerReply: {
-      zh: "好的，我让法务核对一下 SLA 部分，明天上午给您回复。",
-      pinyin: "Hǎo de, wǒ ràng fǎwù héduì yīxià SLA bùfèn, míngtiān shàngwǔ gěi nín huífù.",
-      vi: "Được, để bộ phận pháp lý rà lại phần SLA, sáng mai trả lời anh.",
-    },
-    suggestedResponse: {
-      zh: "好的，那我等您明天上午的回复。技术支持费的计费方式我们也再准备一版对比。",
-      pinyin:
-        "Hǎo de, nà wǒ děng nín míngtiān shàngwǔ de huífù. Jìshù zhīchí fèi de jìfèi fāngshì wǒmen yě zài zhǔnbèi yī bǎn duìbǐ.",
-      vi: "Được, em chờ phản hồi anh sáng mai. Phương án tính phí hỗ trợ em cũng chuẩn bị thêm 1 bản so sánh.",
-    },
-  };
-}
+// ============================================================
+// Lifestyle mocks for Vân Trang — hotel / restaurant / directions /
+// shopping / drama+social. Each returns 3 tones mapping to:
+//   friendly → Casual (thân mật)
+//   polite   → Polite (lịch sự, dùng với staff/stranger)
+//   firm     → Soft natural (Weibo/Xiaohongshu comment tone)
+// ============================================================
 
-function mockProgress(userInput: string): WeChatCoachResult {
+function mockHotel(userInput: string): WeChatCoachResult {
   return {
     originalInput: userInput,
     versions: [
       {
         tone: "friendly",
-        zh: "您好，咱们项目目前到哪一步了？有没有什么需要我这边支持的？",
-        pinyin:
-          "nín hǎo, zánmen xiàngmù mùqián dào nǎ yī bù le? yǒu méiyǒu shénme xūyào wǒ zhèbiān zhīchí de?",
-        vi: "Chào anh, dự án mình hiện tới đâu rồi? Có gì cần bên em hỗ trợ không?",
-        usageNoteVi: "Mở đầu nhẹ, dùng cho daily standup hoặc check-in giữa tuần với PM thân.",
-        riskNoteVi: "Quá nhẹ nếu đối phương đã trễ deliverable — họ có thể né câu hỏi.",
+        zh: "嗨，我到了！我房间的 Wi-Fi 密码是多少呀？早餐几点到几点呀？",
+        pinyin: "Hāi, wǒ dào le! Wǒ fángjiān de Wi-Fi mìmǎ shì duōshǎo ya? Zǎocān jǐ diǎn dào jǐ diǎn ya?",
+        vi: "Hi, em tới rồi! Mật khẩu Wi-Fi phòng là gì vậy? Ăn sáng từ mấy giờ đến mấy giờ?",
+        usageNoteVi: "Casual — host Airbnb / hostel trẻ. Có 呀 thân thiện.",
+        riskNoteVi: "Hơi suồng sã nếu lễ tân khách sạn 5 sao. Dùng polite version.",
       },
       {
         tone: "polite",
-        zh: "王总您好，想了解一下项目目前的进度、主要问题和下个时间节点，方便的话今天下午能否同步 20 分钟？",
-        pinyin:
-          "Wáng zǒng nín hǎo, xiǎng liǎojiě yīxià xiàngmù mùqián de jìndù, zhǔyào wèntí hé xià ge shíjiān jiédiǎn, fāngbiàn de huà jīntiān xiàwǔ néng fǒu tóngbù 20 fēnzhōng?",
-        vi: "Chào sếp Vương, em muốn nắm tiến độ hiện tại, vấn đề chính và mốc thời gian tiếp theo của dự án. Chiều nay 20 phút sync được không?",
-        usageNoteVi: "Standard — liệt kê 3 hạng mục cần update + đề xuất khung giờ cụ thể.",
-        riskNoteVi: "Đúng tone cho check-in tuần. Đối phương dễ chấp nhận.",
+        zh: "您好，我想办理入住，订单号是 8821。请问 Wi-Fi 密码是多少？早餐几点开始？",
+        pinyin: "Nín hǎo, wǒ xiǎng bànlǐ rùzhù, dìngdān hào shì 8821. Qǐngwèn Wi-Fi mìmǎ shì duōshǎo? Zǎocān jǐ diǎn kāishǐ?",
+        vi: "Chào anh/chị, tôi muốn làm thủ tục nhận phòng, mã đặt 8821. Cho hỏi mật khẩu Wi-Fi là gì? Mấy giờ bắt đầu ăn sáng?",
+        usageNoteVi: "Standard lễ tân khách sạn — 您 + 请问.",
+        riskNoteVi: "An toàn mọi khách sạn 3-5 sao.",
       },
       {
         tone: "firm",
-        zh: "王总您好，项目这周已经到关键节点了。请您今天发我一份进度更新，包括当前主要风险、负责人和后续安排，便于我们决定下一步。",
-        pinyin:
-          "Wáng zǒng nín hǎo, xiàngmù zhè zhōu yǐjīng dào guānjiàn jiédiǎn le. Qǐng nín jīntiān fā wǒ yī fèn jìndù gēngxīn, bāokuò dāngqián zhǔyào fēngxiǎn, fùzérén hé hòuxù ānpái, biàn yú wǒmen juédìng xià yī bù.",
-        vi: "Chào sếp Vương, dự án tuần này đã tới mốc quan trọng. Xin anh gửi em update tiến độ hôm nay — gồm rủi ro chính, người phụ trách và kế hoạch follow-up — để bên em quyết bước tiếp.",
-        usageNoteVi: "Firm — yêu cầu cụ thể (3 nội dung), deadline cứng (hôm nay), lý do (decision needed).",
-        riskNoteVi: "Dùng khi đã missed timeline 1-2 lần. Tránh ở vòng đầu — nghe gay gắt.",
-      },
-    ],
-    corporateToneScore: 7,
-    clarityScore: 8,
-    naturalnessScore: 8,
-    suggestedVocabulary: [
-      { hanzi: "项目进度", pinyin: "xiàngmù jìndù", vi: "tiến độ dự án" },
-      { hanzi: "时间节点", pinyin: "shíjiān jiédiǎn", vi: "milestone / mốc thời gian" },
-      { hanzi: "负责人", pinyin: "fùzérén", vi: "người phụ trách" },
-      { hanzi: "后续安排", pinyin: "hòuxù ānpái", vi: "kế hoạch follow-up" },
-      { hanzi: "关键节点", pinyin: "guānjiàn jiédiǎn", vi: "mốc quan trọng" },
-    ],
-    keyVocabulary: mkVocab([
-      ["进度", "jìndù", "tiến độ"],
-      ["主要问题", "zhǔyào wèntí", "vấn đề chính"],
-      ["时间节点", "shíjiān jiédiǎn", "milestone"],
-      ["风险", "fēngxiǎn", "rủi ro"],
-      ["后续安排", "hòuxù ānpái", "kế hoạch follow-up"],
-    ]),
-    followUpQuestion: {
-      zh: "目前最大的风险是哪一块？",
-      pinyin: "Mùqián zuì dà de fēngxiǎn shì nǎ yī kuài?",
-      vi: "Rủi ro lớn nhất hiện giờ nằm ở phần nào?",
-    },
-    partnerReply: {
-      zh: "技术联调那块还有两个 bug，预计本周五前修完。",
-      pinyin:
-        "Jìshù liántiáo nà kuài hái yǒu liǎng ge bug, yùjì běn zhōu wǔ qián xiū wán.",
-      vi: "Phần tích hợp kỹ thuật còn 2 bug, dự kiến fix xong trước thứ Sáu tuần này.",
-    },
-    suggestedResponse: {
-      zh: "好的，那周五我们做一次联调验收。如果有阻塞先告诉我。",
-      pinyin: "Hǎo de, nà zhōu wǔ wǒmen zuò yī cì liántiáo yànshōu. Rúguǒ yǒu zǔsè xiān gàosù wǒ.",
-      vi: "Được, thứ Sáu mình verify tích hợp. Nếu có blocker báo em sớm.",
-    },
-  };
-}
-
-function mockVip(userInput: string): WeChatCoachResult {
-  return {
-    originalInput: userInput,
-    versions: [
-      {
-        tone: "friendly",
-        zh: "王总到了吗？我已经在到达口外面等您了，开一辆黑色 SUV。",
-        pinyin: "Wáng zǒng dào le ma? Wǒ yǐjīng zài dàodá kǒu wàimiàn děng nín le, kāi yī liàng hēisè SUV.",
-        vi: "Sếp Vương xuống chưa? Em đang đợi ngoài cổng đến, lái 1 chiếc SUV đen.",
-        usageNoteVi: "Khi VIP vừa hạ cánh — ngắn gọn, action-oriented, không hoa lá.",
-        riskNoteVi: "Hợp khi đã chat WeChat vài lần. First-time nên dùng polite version.",
-      },
-      {
-        tone: "polite",
-        zh: "王总您好，欢迎来到越南。我已经在到达口等您了，黑色 SUV，车牌后两位 88。酒店和明天上午十点的会议都已经安排好。",
-        pinyin:
-          "Wáng zǒng nín hǎo, huānyíng lái dào Yuènán. Wǒ yǐjīng zài dàodá kǒu děng nín le, hēisè SUV, chēpái hòu liǎng wèi 88. Jiǔdiàn hé míngtiān shàngwǔ shí diǎn de huìyì dōu yǐjīng ānpái hǎo.",
-        vi: "Chào sếp Vương, hoan nghênh tới Việt Nam. Em đang đợi ở cổng đến, SUV đen biển 88. Khách sạn và họp 10h sáng mai đã sắp xếp xong.",
-        usageNoteVi: "Standard VIP welcome — chào mừng + định vị xe + xác nhận lịch.",
-        riskNoteVi: "An toàn cho mọi tình huống. Có thể tách thành 2 tin để dễ đọc trên phone.",
-      },
-      {
-        tone: "firm",
-        zh: "王总，请您出口后直接联系我，我在 A 出口外面，请告诉我您大概几分钟到。",
-        pinyin: "Wáng zǒng, qǐng nín chūkǒu hòu zhíjiē liánxì wǒ, wǒ zài A chūkǒu wàimiàn, qǐng gàosù wǒ nín dàgài jǐ fēnzhōng dào.",
-        vi: "Sếp Vương, anh ra cổng xong gọi em luôn nhé, em đang đợi ngoài cổng A. Anh báo em khoảng mấy phút nữa tới.",
-        usageNoteVi: "Khi VIP chậm trễ hoặc xe bị tắc — direct, lệnh nhẹ.",
-        riskNoteVi: "Cứng. Chỉ dùng khi quá thời gian dự kiến >20 phút và cần điều phối xe.",
+        zh: "你好，刚到酒店啦~ 求 Wi-Fi 密码和早餐时间，谢谢！",
+        pinyin: "Nǐ hǎo, gāng dào jiǔdiàn la~ Qiú Wi-Fi mìmǎ hé zǎocān shíjiān, xièxie!",
+        vi: "Chào nhé, em mới tới khách sạn~ Xin password Wi-Fi và giờ ăn sáng nhé, cảm ơn!",
+        usageNoteVi: "Soft natural — message Weibo/Xiaohongshu host hoặc reply nhân viên front-desk online.",
+        riskNoteVi: "Tốt cho online chat. Tránh nói trực diện vì 求 hơi cute.",
       },
     ],
     corporateToneScore: 8,
     clarityScore: 9,
     naturalnessScore: 8,
     suggestedVocabulary: [
-      { hanzi: "到达口", pinyin: "dàodá kǒu", vi: "cổng đến (arrival gate)" },
-      { hanzi: "车牌", pinyin: "chēpái", vi: "biển số xe" },
-      { hanzi: "安排好", pinyin: "ānpái hǎo", vi: "đã sắp xếp xong" },
-      { hanzi: "行程", pinyin: "xíngchéng", vi: "lịch trình" },
-      { hanzi: "接机", pinyin: "jiējī", vi: "đón ở sân bay" },
+      { hanzi: "办理入住", pinyin: "bànlǐ rùzhù", vi: "làm thủ tục nhận phòng" },
+      { hanzi: "订单号", pinyin: "dìngdān hào", vi: "mã đặt phòng" },
+      { hanzi: "押金", pinyin: "yājīn", vi: "tiền cọc" },
+      { hanzi: "退房", pinyin: "tuìfáng", vi: "trả phòng" },
+      { hanzi: "早餐时间", pinyin: "zǎocān shíjiān", vi: "giờ ăn sáng" },
     ],
     keyVocabulary: mkVocab([
-      ["欢迎", "huānyíng", "chào mừng"],
-      ["接机", "jiējī", "đón sân bay"],
-      ["酒店", "jiǔdiàn", "khách sạn"],
-      ["行程", "xíngchéng", "lịch trình"],
-      ["安排", "ānpái", "sắp xếp"],
+      ["办理入住", "bànlǐ rùzhù", "làm thủ tục nhận phòng"],
+      ["Wi-Fi 密码", "Wi-Fi mìmǎ", "mật khẩu Wi-Fi"],
+      ["早餐", "zǎocān", "bữa sáng"],
+      ["押金", "yājīn", "tiền cọc"],
+      ["退房", "tuìfáng", "trả phòng"],
     ]),
     followUpQuestion: {
-      zh: "您行李多吗？要不要安排一辆更大的车？",
-      pinyin: "Nín xínglǐ duō ma? Yào bù yào ānpái yī liàng gèng dà de chē?",
-      vi: "Anh nhiều hành lý không? Có cần sắp xe lớn hơn không?",
+      zh: "您需要预约接送机服务吗？",
+      pinyin: "Nín xūyào yùyuē jiēsòng jī fúwù ma?",
+      vi: "Quý khách có cần đặt dịch vụ đưa đón sân bay không?",
     },
     partnerReply: {
-      zh: "不多，一个行李箱。十分钟到。",
-      pinyin: "Bù duō, yī ge xínglǐxiāng. Shí fēnzhōng dào.",
-      vi: "Không nhiều, 1 vali. 10 phút nữa tới.",
+      zh: "Wi-Fi 密码是 hotel88，早餐 6:30 到 10:00。",
+      pinyin: "Wi-Fi mìmǎ shì hotel88, zǎocān 6:30 dào 10:00.",
+      vi: "Mật khẩu Wi-Fi là hotel88, ăn sáng 6:30 đến 10:00.",
     },
     suggestedResponse: {
-      zh: "好的，我在 A 出口外面等您。",
-      pinyin: "Hǎo de, wǒ zài A chūkǒu wàimiàn děng nín.",
-      vi: "Được, em đợi anh ở cổng A.",
+      zh: "谢谢！我先回房间休息一下，待会下楼吃饭。",
+      pinyin: "Xièxie! Wǒ xiān huí fángjiān xiūxi yīxià, dāihuǐ xiàlóu chīfàn.",
+      vi: "Cảm ơn! Tôi về phòng nghỉ chút, lát xuống ăn.",
+    },
+  };
+}
+
+function mockRestaurant(userInput: string): WeChatCoachResult {
+  return {
+    originalInput: userInput,
+    versions: [
+      {
+        tone: "friendly",
+        zh: "老板，这个菜辣不辣呀？我们两个不太能吃辣，推荐个不辣的吧！",
+        pinyin: "Lǎobǎn, zhège cài là bù là ya? Wǒmen liǎng ge bù tài néng chī là, tuījiàn ge bù là de ba!",
+        vi: "Anh ơi, món này cay không vậy? Hai đứa em không ăn cay được lắm, gợi ý món không cay đi!",
+        usageNoteVi: "Quán bình dân, người bán thân thiện.",
+        riskNoteVi: "Hơi suồng sã nếu quán fine-dining.",
+      },
+      {
+        tone: "polite",
+        zh: "服务员，麻烦推荐一道不太辣的菜。我们有两个不能吃辣，再来一份米饭和一碗汤。请买单的时候叫我们一声。",
+        pinyin: "Fúwùyuán, máfan tuījiàn yī dào bù tài là de cài. Wǒmen yǒu liǎng ge bù néng chī là, zài lái yī fèn mǐfàn hé yī wǎn tāng. Qǐng mǎidān de shíhou jiào wǒmen yī shēng.",
+        vi: "Bạn ơi, phiền gợi ý 1 món không cay lắm. Hai người không ăn được cay, thêm 1 cơm + 1 canh. Lúc tính tiền gọi em nhé.",
+        usageNoteVi: "Quán có phục vụ — 服务员 + 麻烦 + 请买单 lịch sự.",
+        riskNoteVi: "An toàn mọi quán.",
+      },
+      {
+        tone: "firm",
+        zh: "这家川菜真的太顶了，老板态度也好，强推不辣的回锅肉！#成都美食 #避雷或安利",
+        pinyin: "Zhè jiā chuāncài zhēn de tài dǐng le, lǎobǎn tàidu yě hǎo, qiáng tuī bù là de huíguōròu! #Chéngdū měishí #bìléi huò ānlì",
+        vi: "Quán Tứ Xuyên này đỉnh thật, chủ thái độ cũng tốt, recommend mạnh món thịt kho không cay! #ẩmThựcThànhĐô #cảnhBáoVàAnLợi",
+        usageNoteVi: "Soft natural — caption Xiaohongshu / review Dianping.",
+        riskNoteVi: "Chỉ dùng cho review online — không nói trực diện với phục vụ.",
+      },
+    ],
+    corporateToneScore: 8,
+    clarityScore: 9,
+    naturalnessScore: 8,
+    suggestedVocabulary: [
+      { hanzi: "服务员", pinyin: "fúwùyuán", vi: "nhân viên phục vụ" },
+      { hanzi: "推荐", pinyin: "tuījiàn", vi: "gợi ý / recommend" },
+      { hanzi: "不太辣", pinyin: "bù tài là", vi: "không cay lắm" },
+      { hanzi: "打包", pinyin: "dǎbāo", vi: "gói mang về" },
+      { hanzi: "请买单", pinyin: "qǐng mǎidān", vi: "vui lòng tính tiền" },
+    ],
+    keyVocabulary: mkVocab([
+      ["菜单", "càidān", "thực đơn"],
+      ["点菜", "diǎn cài", "gọi món"],
+      ["不要辣", "bù yào là", "không cay"],
+      ["打包", "dǎbāo", "gói mang về"],
+      ["请买单", "qǐng mǎidān", "vui lòng tính tiền"],
+    ]),
+    followUpQuestion: {
+      zh: "需要忌口吗？海鲜或者花生？",
+      pinyin: "Xūyào jìkǒu ma? Hǎixiān huòzhě huāshēng?",
+      vi: "Có kiêng gì không? Hải sản hay đậu phộng?",
+    },
+    partnerReply: {
+      zh: "推荐试试鱼香肉丝，微辣，配米饭最香。",
+      pinyin: "Tuījiàn shì shi yú xiāng ròu sī, wēi là, pèi mǐfàn zuì xiāng.",
+      vi: "Thử thịt lợn xào kiểu Ngư Hương, hơi cay nhẹ, ăn với cơm là thơm nhất.",
+    },
+    suggestedResponse: {
+      zh: "好的，那来一份鱼香肉丝，再加一个不辣的菜和一碗汤，谢谢！",
+      pinyin: "Hǎo de, nà lái yī fèn yú xiāng ròu sī, zài jiā yī gè bù là de cài hé yī wǎn tāng, xièxie!",
+      vi: "Được, cho 1 phần Ngư Hương + thêm 1 món không cay + 1 bát canh, cảm ơn!",
+    },
+  };
+}
+
+function mockDirections(userInput: string): WeChatCoachResult {
+  return {
+    originalInput: userInput,
+    versions: [
+      {
+        tone: "friendly",
+        zh: "你好，请问到故宫怎么走呀？走路远不远？",
+        pinyin: "Nǐ hǎo, qǐngwèn dào Gùgōng zěnme zǒu ya? Zǒulù yuǎn bù yuǎn?",
+        vi: "Chào bạn, cho hỏi tới Cố Cung đi sao? Đi bộ có xa không?",
+        usageNoteVi: "Hỏi đường thân thiện — người trẻ trên phố.",
+        riskNoteVi: "Tốt cho mọi tình huống casual.",
+      },
+      {
+        tone: "polite",
+        zh: "请问，到故宫怎么走？坐地铁几号线？大概要多长时间？",
+        pinyin: "Qǐngwèn, dào Gùgōng zěnme zǒu? Zuò dìtiě jǐ hào xiàn? Dàgài yào duō cháng shíjiān?",
+        vi: "Cho hỏi, tới Cố Cung đi thế nào? Đi metro số mấy? Mất khoảng bao lâu?",
+        usageNoteVi: "Standard hỏi đường — 请问 mở đầu.",
+        riskNoteVi: "An toàn với mọi đối tượng (cô chú, sinh viên, lái xe).",
+      },
+      {
+        tone: "firm",
+        zh: "求救！第一次来北京，求大家教故宫怎么走最方便？打车还是地铁？#北京攻略",
+        pinyin: "Qiú jiù! Dì yī cì lái Běijīng, qiú dàjiā jiāo Gùgōng zěnme zǒu zuì fāngbiàn? Dǎchē háishì dìtiě? #Běijīng gōnglüè",
+        vi: "Cứu! Lần đầu tới Bắc Kinh, xin mọi người chỉ giúp đi Cố Cung kiểu nào tiện nhất? Taxi hay metro? #cẩmnangBắcKinh",
+        usageNoteVi: "Soft natural — post Xiaohongshu hỏi netizen.",
+        riskNoteVi: "Chỉ dùng online post — không hỏi trực diện trên phố.",
+      },
+    ],
+    corporateToneScore: 7,
+    clarityScore: 9,
+    naturalnessScore: 8,
+    suggestedVocabulary: [
+      { hanzi: "请问", pinyin: "qǐngwèn", vi: "cho hỏi (lịch sự)" },
+      { hanzi: "怎么走", pinyin: "zěnme zǒu", vi: "đi thế nào" },
+      { hanzi: "几号线", pinyin: "jǐ hào xiàn", vi: "tuyến metro số mấy" },
+      { hanzi: "多远", pinyin: "duō yuǎn", vi: "bao xa" },
+      { hanzi: "出租车", pinyin: "chūzūchē", vi: "taxi" },
+    ],
+    keyVocabulary: mkVocab([
+      ["请问", "qǐngwèn", "cho hỏi (lịch sự)"],
+      ["怎么走", "zěnme zǒu", "đi thế nào"],
+      ["地铁", "dìtiě", "metro"],
+      ["多远", "duō yuǎn", "bao xa"],
+      ["大概", "dàgài", "khoảng"],
+    ]),
+    followUpQuestion: {
+      zh: "你说的是哪个故宫？北京还是沈阳的？",
+      pinyin: "Nǐ shuō de shì nǎ ge Gùgōng? Běijīng háishì Shěnyáng de?",
+      vi: "Bạn hỏi Cố Cung nào? Bắc Kinh hay Thẩm Dương?",
+    },
+    partnerReply: {
+      zh: "坐 1 号线到天安门东站，出来走 5 分钟就到。",
+      pinyin: "Zuò 1 hào xiàn dào Tiān'ānmén dōng zhàn, chūlái zǒu 5 fēnzhōng jiù dào.",
+      vi: "Đi tuyến 1 đến ga Thiên An Môn Đông, ra ngoài đi bộ 5 phút là tới.",
+    },
+    suggestedResponse: {
+      zh: "好的，谢谢！我现在就去坐地铁。",
+      pinyin: "Hǎo de, xièxie! Wǒ xiànzài jiù qù zuò dìtiě.",
+      vi: "Được, cảm ơn! Em đi metro luôn.",
+    },
+  };
+}
+
+function mockShopping(userInput: string): WeChatCoachResult {
+  return {
+    originalInput: userInput,
+    versions: [
+      {
+        tone: "friendly",
+        zh: "老板，这条丝巾多少钱呀？便宜点行不行？180 怎么样？",
+        pinyin: "Lǎobǎn, zhè tiáo sījīn duōshǎo qián ya? Piányi diǎn xíng bù xíng? 180 zěnmeyàng?",
+        vi: "Anh chủ, chiếc khăn này bao nhiêu vậy? Bớt chút được không? 180 nhé?",
+        usageNoteVi: "Chợ đêm, sạp lề đường — văn hoá mặc cả OK.",
+        riskNoteVi: "Tránh dùng ở mall / cửa hàng giá niêm yết.",
+      },
+      {
+        tone: "polite",
+        zh: "您好，这条丝巾多少钱？可以稍微便宜一点吗？我想买两条。",
+        pinyin: "Nín hǎo, zhè tiáo sījīn duōshǎo qián? Kěyǐ shāowēi piányi yīdiǎn ma? Wǒ xiǎng mǎi liǎng tiáo.",
+        vi: "Chào anh/chị, khăn này bao nhiêu? Bớt chút được không ạ? Em định mua 2 chiếc.",
+        usageNoteVi: "Lịch sự hơn — boutique nhỏ, bố mẹ bán hàng.",
+        riskNoteVi: "An toàn ở mọi cửa hàng nhỏ.",
+      },
+      {
+        tone: "firm",
+        zh: "西安夜市这条丝巾我砍到 180 拿下！姐妹们去的话也可以试试，老板态度超好~ #西安夜市攻略",
+        pinyin: "Xī'ān yèshì zhè tiáo sījīn wǒ kǎn dào 180 ná xià! Jiěmèimen qù de huà yě kěyǐ shìshi, lǎobǎn tàidu chāo hǎo~ #Xī'ān yèshì gōnglüè",
+        vi: "Khăn này ở chợ đêm Tây An mình mặc cả xuống 180 mua được! Chị em đi thử nhé, chủ thái độ siêu tốt~ #cẩmnangChợĐêmTâyAn",
+        usageNoteVi: "Soft natural — caption Xiaohongshu khoe deal.",
+        riskNoteVi: "Chỉ dùng online — không nói khi đang trong cửa hàng.",
+      },
+    ],
+    corporateToneScore: 7,
+    clarityScore: 9,
+    naturalnessScore: 8,
+    suggestedVocabulary: [
+      { hanzi: "多少钱", pinyin: "duōshǎo qián", vi: "bao nhiêu tiền" },
+      { hanzi: "便宜点", pinyin: "piányi diǎn", vi: "rẻ hơn chút" },
+      { hanzi: "试穿", pinyin: "shìchuān", vi: "mặc thử" },
+      { hanzi: "微信支付", pinyin: "Wēixìn zhīfù", vi: "trả qua WeChat Pay" },
+      { hanzi: "扫码", pinyin: "sǎo mǎ", vi: "quét mã QR" },
+    ],
+    keyVocabulary: mkVocab([
+      ["老板", "lǎobǎn", "anh/chị chủ"],
+      ["多少钱", "duōshǎo qián", "bao nhiêu tiền"],
+      ["便宜点", "piányi diǎn", "rẻ hơn chút"],
+      ["微信支付", "Wēixìn zhīfù", "WeChat Pay"],
+    ]),
+    followUpQuestion: {
+      zh: "要发票吗？我们这边能开。",
+      pinyin: "Yào fāpiào ma? Wǒmen zhèbiān néng kāi.",
+      vi: "Có cần hoá đơn không? Bên em xuất được.",
+    },
+    partnerReply: {
+      zh: "200 吧，刚才已经亏本了。",
+      pinyin: "200 ba, gāngcái yǐjīng kuīběn le.",
+      vi: "200 đi, vừa nãy đã lỗ rồi.",
+    },
+    suggestedResponse: {
+      zh: "好的，190 我就拿。可以微信支付吗？",
+      pinyin: "Hǎo de, 190 wǒ jiù ná. Kěyǐ Wēixìn zhīfù ma?",
+      vi: "Được, 190 em lấy. Trả WeChat Pay được không?",
+    },
+  };
+}
+
+function mockDramaSocial(userInput: string): WeChatCoachResult {
+  return {
+    originalInput: userInput,
+    versions: [
+      {
+        tone: "friendly",
+        zh: "笑死，这剧颜值真的绝绝子！男主太帅了，求安利同款 OST～",
+        pinyin: "Xiào sǐ, zhè jù yánzhí zhēn de juéjuézǐ! Nán zhǔ tài shuài le, qiú ānlì tóng kuǎn OST~",
+        vi: "Cười chết, phim này nhan sắc đỉnh thật! Nam chính đẹp trai quá, xin reco bài OST cùng~",
+        usageNoteVi: "Casual — comment trong fan group hoặc nhắn bạn thân.",
+        riskNoteVi: "Hơi cute nếu reply người lạ — chuyển sang soft natural.",
+      },
+      {
+        tone: "polite",
+        zh: "我也很喜欢这部剧的画面和音乐，男主角的演技很自然，期待下周更新。",
+        pinyin: "Wǒ yě hěn xǐhuān zhè bù jù de huàmiàn hé yīnyuè, nán zhǔjué de yǎnjì hěn zìrán, qídài xià zhōu gēngxīn.",
+        vi: "Tôi cũng rất thích hình ảnh và nhạc của bộ phim này, diễn xuất nam chính rất tự nhiên, mong tuần sau ra tập mới.",
+        usageNoteVi: "Polite — reply người lạ ở Weibo, comment dưới một bài báo phim.",
+        riskNoteVi: "An toàn nhưng hơi formal cho fan group thân.",
+      },
+      {
+        tone: "firm",
+        zh: "看完这集真的破防了 😭 男主告白那段太戳人，谁懂啊！期待下集更新～#追剧日常",
+        pinyin: "Kàn wán zhè jí zhēn de pòfáng le 😭 Nán zhǔ gàobái nà duàn tài chuō rén, shéi dǒng a! Qídài xià jí gēngxīn~ #zhuī jù rìcháng",
+        vi: "Xem xong tập này tan chảy luôn 😭 đoạn nam chính tỏ tình quá thấm, ai mà hiểu nổi! Hóng tập tiếp~ #ngàyNgàyDuổiPhim",
+        usageNoteVi: "Soft natural — caption post Xiaohongshu/Weibo, vibe fangirl nhưng vẫn lịch sự.",
+        riskNoteVi: "Tốt cho mọi post công khai về drama.",
+      },
+    ],
+    corporateToneScore: 8,
+    clarityScore: 8,
+    naturalnessScore: 9,
+    suggestedVocabulary: [
+      { hanzi: "颜值", pinyin: "yánzhí", vi: "nhan sắc (slang)" },
+      { hanzi: "yyds", pinyin: "yyds (永远的神)", vi: "GOAT / đỉnh" },
+      { hanzi: "破防", pinyin: "pòfáng", vi: "tan chảy / xúc động" },
+      { hanzi: "求安利", pinyin: "qiú ānlì", vi: "xin reco" },
+      { hanzi: "追剧", pinyin: "zhuī jù", vi: "đuổi phim / theo dõi drama" },
+    ],
+    keyVocabulary: mkVocab([
+      ["这剧", "zhè jù", "phim này"],
+      ["颜值", "yánzhí", "nhan sắc"],
+      ["演技", "yǎnjì", "diễn xuất"],
+      ["求安利", "qiú ānlì", "xin reco"],
+      ["破防", "pòfáng", "tan chảy"],
+    ]),
+    followUpQuestion: {
+      zh: "你看到第几集了？后面会更精彩。",
+      pinyin: "Nǐ kàn dào dì jǐ jí le? Hòumiàn huì gèng jīngcǎi.",
+      vi: "Bạn xem đến tập mấy rồi? Sau này hay hơn nữa.",
+    },
+    partnerReply: {
+      zh: "刚看到第八集，男二也太可爱了！",
+      pinyin: "Gāng kàn dào dì bā jí, nán èr yě tài kě'ài le!",
+      vi: "Vừa xem đến tập 8, nam phụ cũng đáng yêu quá!",
+    },
+    suggestedResponse: {
+      zh: "对对对，男二线才是隐藏好剧！下集见~",
+      pinyin: "Duì duì duì, nán èr xiàn cái shì yǐncáng hǎo jù! Xià jí jiàn~",
+      vi: "Đúng đúng, tuyến nam phụ mới là good drama ẩn! Hẹn tập sau~",
     },
   };
 }

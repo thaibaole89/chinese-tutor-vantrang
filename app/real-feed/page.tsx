@@ -15,17 +15,21 @@ import type { RealFeedCategoryGroup, RealFeedSource } from "@/lib/types";
 const SOURCE_LABEL: Record<RealFeedSource, string> = {
   news: "Tin tức",
   social: "Mạng xã hội",
-  business: "Business",
-  music: "Âm nhạc",
+  music: "Nhạc",
   wechat: "WeChat",
+  travel: "Du lịch",
+  drama: "Phim",
 };
 
 const ALL_CATEGORIES: RealFeedCategoryGroup[] = [
-  "business",
-  "luxury-retail",
-  "duty-free-airport",
-  "finance-ai-crypto",
+  "travel",
+  "food",
+  "hotel",
+  "directions",
+  "shopping",
+  "drama",
   "social",
+  "news",
   "music",
 ];
 
@@ -49,13 +53,14 @@ export default function RealFeedPage() {
       {/* Hero */}
       <section className="bg-ink-900 text-white">
         <div className="px-6 py-section">
-          <div className="label-uppercase text-on-dark-soft">Real Chinese</div>
+          <div className="label-uppercase text-on-dark-soft">Khám phá</div>
           <h1 className="mt-4 text-4xl sm:text-5xl font-bold leading-[1.05]">
             Tiếng Trung đời thật
           </h1>
           <p className="mt-3 max-w-2xl text-base font-light text-on-dark-soft">
-            Tin tức, WeChat, slang, music — không phải tiếng Trung sách giáo khoa. 10 nội dung
-            ngắn từng được người Trung dùng thật trong công việc và đời sống.
+            Du lịch, ẩm thực, hỏi đường, mua sắm, phim cổ trang & hiện đại, Xiaohongshu /
+            Douyin / Weibo, tin tức — {all.length} đoạn ngắn người Trung dùng thật trong đời
+            thường, không phải sách giáo khoa.
           </p>
         </div>
       </section>

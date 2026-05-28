@@ -76,6 +76,17 @@ export const extraRoleplayScenarios: RoleplayScenario[] = [
     targetPhrases: ["听说", "免签", "15 天", "可以去"],
     difficulty: "medium",
   },
+  {
+    id: "extra-taxi-didi",
+    titleVi: "Đặt taxi / Didi (gọi xe)",
+    titleZh: "打车 / 滴滴叫车",
+    contextVi:
+      "Bạn gọi xe Didi từ sân bay về khách sạn. Xác nhận điểm đón, hỏi giá, nhắn tài xế nếu chậm. Hoặc vẫy taxi trên phố, nói địa chỉ, hỏi đại khái bao nhiêu.",
+    aiRole: "Tài xế Didi / taxi (cộc lốc, nói nhanh)",
+    userRole: "Vân Trang — hành khách",
+    targetPhrases: ["师傅", "麻烦去", "酒店", "大概多少钱", "扫码支付"],
+    difficulty: "easy",
+  },
 ];
 
 export function getAllRoleplayScenarios(): RoleplayScenario[] {

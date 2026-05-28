@@ -2,28 +2,36 @@ import type { RealFeedCategoryGroup, RealFeedItem, RealFeedSource } from "./type
 import { realFeedItems } from "@/data/realFeedItems";
 
 /**
- * Map an item to a high-level category for filter chips. Items can either
- * carry `categoryGroup` directly (Phase 1.9+ items) or be inferred from
- * source + topic tags (legacy items).
+ * Map an item to a high-level category for filter chips. Items should
+ * carry `categoryGroup` directly; this function falls back to inferring
+ * from sourceType + topic tags for any item that doesn't.
  */
 export function categoryGroupFor(item: RealFeedItem): RealFeedCategoryGroup {
   if (item.categoryGroup) return item.categoryGroup;
   const tags = item.topicTags.map((t) => t.toLowerCase());
   if (item.sourceType === "music") return "music";
+  if (item.sourceType === "news") return "news";
+  if (item.sourceType === "drama") return "drama";
   if (item.sourceType === "social") return "social";
-  if (tags.some((t) => ["luxury", "watches", "fragrance", "beauty"].includes(t))) return "luxury-retail";
-  if (tags.some((t) => ["airport", "duty-free", "retail", "hotel", "travel"].includes(t))) return "duty-free-airport";
-  if (tags.some((t) => ["crypto", "finance", "ai", "productivity", "risk"].includes(t))) return "finance-ai-crypto";
-  return "business";
+  if (item.sourceType === "wechat") return "social";
+  // sourceType === "travel" — sub-bucket by tag
+  if (tags.some((t) => ["hotel", "khách sạn", "lodging"].includes(t))) return "hotel";
+  if (tags.some((t) => ["food", "restaurant", "ẩm thực"].includes(t))) return "food";
+  if (tags.some((t) => ["directions", "transport", "metro", "taxi"].includes(t))) return "directions";
+  if (tags.some((t) => ["shopping", "market", "mall"].includes(t))) return "shopping";
+  return "travel";
 }
 
 export const CATEGORY_LABEL: Record<RealFeedCategoryGroup, string> = {
-  business: "Business",
-  "luxury-retail": "Luxury Retail",
-  "duty-free-airport": "Duty-Free / Airport",
-  "finance-ai-crypto": "Finance / AI / Crypto",
-  social: "Social Chinese",
-  music: "Music / Lyrics",
+  travel: "Du lịch",
+  food: "Ẩm thực",
+  hotel: "Khách sạn",
+  directions: "Hỏi đường",
+  shopping: "Mua sắm",
+  drama: "Phim cổ trang / hiện đại",
+  social: "Mạng xã hội",
+  news: "Tin tức",
+  music: "Nhạc / Lời",
 };
 
 export function getAllRealFeedItems(): RealFeedItem[] {

@@ -253,15 +253,27 @@ export interface Mistake {
   mastered: boolean;
 }
 
-export type RealFeedSource = "news" | "social" | "business" | "music" | "wechat";
+/**
+ * Vân Trang lifestyle sources. "business" / "wechat" kept for backward
+ * compatibility with the underlying field name, but UI labels and the
+ * fresh content set lean on travel / drama / social / news / music.
+ */
+export type RealFeedSource = "news" | "social" | "music" | "wechat" | "travel" | "drama";
 
-/** Phase 1.9 — high-level grouping for filtering on /real-feed. */
+/**
+ * High-level grouping for filtering on /real-feed. Re-cast for Vân Trang:
+ * travel sub-buckets (food, hotel, directions, shopping), then drama,
+ * social, news, music. Each item carries exactly one category.
+ */
 export type RealFeedCategoryGroup =
-  | "business"
-  | "luxury-retail"
-  | "duty-free-airport"
-  | "finance-ai-crypto"
+  | "travel"
+  | "food"
+  | "hotel"
+  | "directions"
+  | "shopping"
+  | "drama"
   | "social"
+  | "news"
   | "music";
 
 export interface RealFeedItem {

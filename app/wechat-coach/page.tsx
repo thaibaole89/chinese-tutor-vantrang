@@ -11,9 +11,10 @@ export default function WeChatCoachPage() {
           </h1>
           <p className="mt-3 max-w-2xl text-base font-light text-on-dark-soft">
             Gõ ý bạn muốn nói (tiếng Việt hoặc Trung thô). AI viết lại 3 phiên bản:
-            <strong> casual</strong> (bạn thân / fan-group), <strong>warm</strong> (gia đình,
-            người quen), <strong>respectful</strong> (lịch sự với người lạ / lớn tuổi) — kèm
-            pinyin, ghi chú văn phong, và gợi ý câu tiếp.
+            <strong> Casual / thân mật</strong> (bạn, drama fan group),
+            <strong> Polite / lịch sự</strong> (lễ tân, lái xe, người bán hàng),
+            <strong> Soft natural / tự nhiên mềm</strong> (Weibo comment, Xiaohongshu reply).
+            Dùng cho hỏi khách sạn / nhà hàng / đường / chat bạn / comment phim.
           </p>
         </div>
       </section>

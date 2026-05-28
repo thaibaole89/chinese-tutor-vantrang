@@ -6,9 +6,10 @@ import { LearningVisual } from "./LearningVisual";
 const SOURCE_LABEL: Record<RealFeedItem["sourceType"], string> = {
   news: "Tin tức",
   social: "Mạng xã hội",
-  business: "Business",
-  music: "Âm nhạc",
+  music: "Nhạc",
   wechat: "WeChat",
+  travel: "Du lịch",
+  drama: "Phim",
 };
 
 interface Props {

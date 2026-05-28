@@ -30,13 +30,14 @@ export default function DomainPacksPage() {
       {/* Hero */}
       <section className="bg-ink-900 text-white">
         <div className="px-6 py-section">
-          <div className="label-uppercase text-on-dark-soft">Domain Packs</div>
+          <div className="label-uppercase text-on-dark-soft">Chủ đề</div>
           <h1 className="mt-4 text-4xl sm:text-5xl font-bold leading-[1.05]">
-            Gói từ vựng theo lĩnh vực
+            Gói học theo chủ đề
           </h1>
           <p className="mt-3 max-w-2xl text-base font-light text-on-dark-soft">
-            5 packs vertical: business negotiation, crypto, duty-free, hotel, AI. Mỗi pack 20 từ
-            + 10 mẫu câu (kèm register) + 5 scenarios role-play.
+            5 gói học theo nhu cầu của Vân Trang: du lịch Trung Quốc, phim cổ trang, phim hiện
+            đại, mạng xã hội Trung Quốc, đọc tin tức. Mỗi pack gồm từ vựng, mẫu câu, role-play
+            và WeChat drills.
           </p>
         </div>
       </section>

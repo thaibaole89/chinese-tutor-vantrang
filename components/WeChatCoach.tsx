@@ -7,11 +7,14 @@ import { SpeechInput } from "./SpeechInput";
 import { upsertVocabAsFlashcards } from "@/lib/storage";
 
 // Vân Trang lifestyle context: tone enum values stay backward-compatible
-// (friendly / polite / firm) but the UI labels them as casual / warm / respectful.
+// (friendly / polite / firm) but the UI labels them per the spec:
+//   friendly → Casual / thân mật (bạn thân, group fan drama)
+//   polite   → Polite / lịch sự (lễ tân, lái xe, người bán hàng)
+//   firm     → Soft natural / tự nhiên mềm (Weibo comment, Xiaohongshu reply)
 const TONE_LABEL: Record<WeChatTone, string> = {
-  friendly: "Casual (bạn thân, group fan)",
-  polite: "Warm (gia đình, người quen)",
-  firm: "Respectful (lịch sự, người lạ / lớn tuổi)",
+  friendly: "Casual · thân mật",
+  polite: "Polite · lịch sự",
+  firm: "Soft natural · tự nhiên mềm",
 };
 
 const TONE_ACCENT: Record<WeChatTone, string> = {
