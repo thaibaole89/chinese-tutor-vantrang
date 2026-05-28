@@ -1,0 +1,13 @@
+node_modules
+.next
+.env
+.env.local
+.DS_Store
+*.log
+.vercel
+next-env.d.ts
+tsconfig.tsbuildinfo
+
+# Review artifacts (rebuilt as needed)
+chinese-tutor-bao-review.zip
+CODE_BUNDLE.md

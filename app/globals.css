@@ -1,0 +1,221 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background-color: #fdfaf5; /* canvas */
+  color: #1f1410; /* ink */
+  font-weight: 300; /* Light — BMW corporate editorial voice */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Display headlines + buttons run bold (700) — BMW signature. */
+h1,
+h2,
+h3,
+h4,
+strong,
+.font-display {
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+/* Chinese fallback — Inter doesn't carry CJK glyphs, fall through to system. */
+.zh {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  letter-spacing: 0;
+}
+
+/* ---------------- BMW components ---------------- */
+
+/* Flat card — no shadow, hairline border, rectangular. */
+.card {
+  background-color: #fdfaf5;
+  border: 1px solid #ebe1cf;
+  border-radius: 0;
+}
+
+/* Rectangular button base — 0px radius, height 48px, bold 14px / 0.5px tracking. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 32px;
+  min-height: 48px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-radius: 0;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  @apply btn bg-bmw-blue text-white;
+}
+.btn-primary:hover,
+.btn-primary:active {
+  background-color: #964e5b;
+}
+
+.btn-secondary {
+  @apply btn bg-white text-ink-900 border border-hairline-strong;
+}
+.btn-secondary:hover {
+  background-color: #f5ede0;
+}
+
+.btn-secondary-on-dark {
+  @apply btn bg-transparent text-white border border-white;
+}
+.btn-secondary-on-dark:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-ghost {
+  @apply btn bg-surface-soft text-ink-700;
+}
+.btn-ghost:hover {
+  background-color: #ebe1cf;
+}
+
+/* Legacy accent button alias = primary (no extra brand color in BMW system). */
+.btn-accent {
+  @apply btn-primary;
+}
+
+/* Inline UPPERCASE link — "LEARN MORE ›" pattern. */
+.btn-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #1f1410;
+  transition: color 120ms ease;
+}
+.btn-text-link:hover {
+  color: #b06371;
+}
+.btn-text-link::after {
+  content: "›";
+  font-size: 16px;
+  font-weight: 700;
+  margin-left: 2px;
+}
+
+/* Label uppercase utility */
+.label-uppercase {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* Chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  color: #3a2c1f;
+  background-color: #fdfaf5;
+  border: 1px solid #d4c4a8;
+  border-radius: 0;
+}
+.chip-active {
+  background-color: #1f1410;
+  color: #fdfaf5;
+  border-color: #1f1410;
+}
+.chip-accent {
+  background-color: #faf0f1;
+  border-color: #b06371;
+  color: #964e5b;
+}
+
+/* Category tabs — UPPERCASE letter-spaced + 2px ink underline when active. */
+.category-tab {
+  position: relative;
+  padding: 12px 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #7d6750;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  transition: color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.category-tab:hover {
+  color: #1f1410;
+}
+.category-tab-active {
+  color: #1f1410;
+  border-bottom-color: #1f1410;
+}
+
+/* Form input — 48px, hairline, rectangular, thickens to ink on focus. */
+.text-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid #ebe1cf;
+  border-radius: 0;
+  background-color: #fdfaf5;
+  color: #1f1410;
+  font-size: 16px;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 120ms ease;
+}
+.text-input:focus {
+  border-color: #1f1410;
+  border-width: 1px;
+}
+
+/* M tricolor stripe — only used in M / motorsport context. Currently unused on corporate flow. */
+.m-stripe {
+  height: 4px;
+  background: linear-gradient(
+    to right,
+    #0066b1 0% 33.33%,
+    #b06371 33.33% 66.66%,
+    #e22718 66.66% 100%
+  );
+}
+
+/* ---------------- Flashcard flip primitives ---------------- */
+.flip {
+  perspective: 1000px;
+}
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+.flip.flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
