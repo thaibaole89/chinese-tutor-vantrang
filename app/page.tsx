@@ -63,9 +63,9 @@ export default function DashboardPage() {
       {/* ---------------- Dark hero band — Today's 20-Min Session is the dominant CTA ---------------- */}
       <section className="bg-ink-900 text-white">
         <div className="px-6 py-section">
-          <div className="label-uppercase text-on-dark-soft">15-20 phút mỗi ngày · Vân Trang</div>
+          <div className="label-uppercase text-on-dark-soft">15-20 phút mỗi ngày · Chinese Tutor Vân Trang</div>
           <h1 className="mt-4 text-5xl sm:text-6xl font-bold leading-[1.05]">
-            Chào {profile?.name || "Vân Trang"} ✿
+            Chào {hydrated ? (profile?.name || "Vân Trang") : "Vân Trang"} ✿
           </h1>
           <p className="mt-3 max-w-xl text-base font-light text-on-dark-soft">
             Một phiên ngắn: bài học hôm nay → 1 đoạn thật từ phim / mạng xã hội / báo → luyện

@@ -4,10 +4,10 @@ import { realFeedItems } from "./realFeedItems";
 import { domainPacks } from "./domainPacks";
 
 /**
- * Vân Trang lifestyle extra scenarios. Existing Bao business scenarios
- * (MOU, VIP airport-as-host, project progress) are replaced with
- * lifestyle equivalents: family chat, drama fan chat, travel-buddy
- * coordination.
+ * Vân Trang lifestyle extra scenarios — all business/MOU/VIP-reception/
+ * project-progress scenarios have been removed. Coverage now: family chat,
+ * drama fan chat, travel-buddy coordination, period drama, Xiaohongshu
+ * content, news summarization, taxi/Didi.
  */
 export const extraRoleplayScenarios: RoleplayScenario[] = [
   {

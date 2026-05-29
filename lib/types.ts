@@ -408,13 +408,13 @@ export interface ProgressSnapshot {
 
 export const DEFAULT_USER_PROFILE: UserProfile = {
   id: "local-user",
-  name: "Bao",
+  name: "Vân Trang",
   nativeLanguage: "vi",
   targetLanguage: "zh",
   currentLevel: "beginner_plus",
-  goals: ["daily_communication", "business_chinese"],
+  goals: ["daily_communication", "travel", "media"],
   dailyStudyTime: "15-20 minutes",
-  interests: ["business", "finance", "crypto", "AI", "current_news", "WeChat", "meetings"],
-  learningMethod: ["role_play", "practical_use", "minimal_theory"],
+  interests: ["travel", "food", "current_news", "WeChat"],
+  learningMethod: ["role_play", "practical_use", "minimal_theory", "reading"],
   createdAt: new Date(0).toISOString(),
 };

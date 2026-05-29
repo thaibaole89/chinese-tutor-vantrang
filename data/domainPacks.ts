@@ -11,8 +11,8 @@ import type { DomainPack } from "@/lib/types";
  * 4. pack-social       — Xiaohongshu / Douyin / Weibo (caption + slang)
  * 5. pack-news         — đọc báo / tin tức (tiêu đề + từ vựng formal)
  *
- * Volumes intentionally smaller than the Bao business app (20-25 vocab,
- * 10 patterns each) so the MVP ships fast — easy to expand later.
+ * Volumes intentionally compact (20-25 vocab, 10 patterns each) so the
+ * MVP ships fast — easy to expand later.
  */
 
 export const domainPacks: DomainPack[] = [

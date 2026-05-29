@@ -13,7 +13,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Chinese Tutor Vân Trang",
   description:
-    "Học tiếng Trung 15-20 phút mỗi ngày — du lịch, phim cổ trang & hiện đại, mạng xã hội, đọc báo.",
+    "Học tiếng Trung cho du lịch, phim ảnh, mạng xã hội và đọc hiểu đời sống Trung Quốc.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

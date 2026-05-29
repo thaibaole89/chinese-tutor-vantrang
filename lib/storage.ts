@@ -87,8 +87,29 @@ function write<T>(key: string, value: T): boolean {
 
 // ---- Profile ----
 
+/**
+ * One-shot migration for users who opened the Bao app fork before this
+ * project was renamed. If the stored profile name is "Bao" or "Bảo"
+ * (the old default), rename it to "Vân Trang" — but preserve any
+ * custom name the user entered (e.g., "Linh", "Mai", etc.).
+ *
+ * Idempotent: subsequent reads see the migrated value and the function
+ * short-circuits via the name check.
+ */
+function migrateBaoProfileName(p: UserProfile): UserProfile {
+  const name = (p.name || "").trim();
+  if (name === "" || name === "Bao" || name === "Bảo" || name === "bao" || name === "bảo") {
+    const migrated: UserProfile = { ...p, name: "Vân Trang" };
+    // Persist so we don't migrate on every read.
+    write(KEYS.profile, migrated);
+    return migrated;
+  }
+  return p;
+}
+
 export function getProfile(): UserProfile {
-  return read<UserProfile>(KEYS.profile, DEFAULT_USER_PROFILE);
+  const raw = read<UserProfile>(KEYS.profile, DEFAULT_USER_PROFILE);
+  return migrateBaoProfileName(raw);
 }
 
 export function saveProfile(profile: UserProfile): void {

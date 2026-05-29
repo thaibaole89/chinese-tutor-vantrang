@@ -1,15 +1,15 @@
-# Chinese Tutor Bao
+# Chinese Tutor Vân Trang
 
-Một web app cá nhân học tiếng Trung cho người Việt: 15–20 phút mỗi ngày, role-play, business / WeChat / finance / crypto / AI.
+Web app học tiếng Trung dành riêng cho Vân Trang: 15–20 phút mỗi ngày, role-play, du lịch / phim cổ trang & hiện đại / mạng xã hội (Xiaohongshu / Douyin / Weibo) / đọc báo / chat gia đình + bạn bè trên WeChat. KHÔNG có business / MOU / finance / crypto / AI productivity.
 
-Stack: **Next.js 14 (App Router) + TypeScript + Tailwind**. Chạy local-first bằng `localStorage`; OpenAI và Supabase là tùy chọn. TTS (phát âm tiếng Trung) dùng **Web Speech API** có sẵn trong browser — không cần network, không tốn phí.
+Stack: **Next.js 14 (App Router) + TypeScript + Tailwind**. Chạy local-first bằng `localStorage`; OpenAI là tùy chọn (không có key vẫn dùng được toàn bộ với mock). TTS (phát âm tiếng Trung) dùng **Web Speech API** có sẵn trong browser — không cần network, không tốn phí.
 
 ---
 
 ## Setup
 
 ```bash
-cd chinese-tutor-bao
+cd chinese-tutor-vantrang
 npm install
 npm run dev
 ```

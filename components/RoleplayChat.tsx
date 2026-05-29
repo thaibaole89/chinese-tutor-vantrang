@@ -212,7 +212,7 @@ export function RoleplayChat({ scenario }: Props) {
             <li key={t.id} className="space-y-3">
               <div className="flex justify-end">
                 <div className="max-w-[88%] bg-ink-900 text-white p-4">
-                  <div className="label-uppercase text-on-dark-soft">Bao</div>
+                  <div className="label-uppercase text-on-dark-soft">Bạn</div>
                   <div className="zh text-lg font-bold mt-2">{t.text}</div>
                 </div>
               </div>
