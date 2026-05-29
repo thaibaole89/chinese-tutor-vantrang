@@ -22,6 +22,87 @@ export function categoryGroupFor(item: RealFeedItem): RealFeedCategoryGroup {
   return "travel";
 }
 
+/**
+ * Vietnamese-friendly display labels for the raw English/internal topic
+ * tag strings carried on each item (item.topicTags). Used by RealFeedCard
+ * chips and the /real-feed topic filter so users never see naked English
+ * tags like "travel food restaurant" / "drama period comprehension".
+ *
+ * Any tag not in this map falls through with its raw value (so unknown
+ * tags still render, just without polish).
+ */
+export const TAG_LABEL: Record<string, string> = {
+  // travel core
+  travel: "Du lịch",
+  food: "Ẩm thực",
+  restaurant: "Nhà hàng",
+  hotel: "Khách sạn",
+  directions: "Hỏi đường",
+  shopping: "Mua sắm",
+  market: "Chợ đêm",
+  transport: "Di chuyển",
+  airport: "Sân bay",
+  payment: "Thanh toán",
+  photo: "Chụp ảnh",
+  emergency: "Khẩn cấp",
+  "emergency-only": "Chỉ khẩn cấp",
+  // drama
+  drama: "Phim",
+  period: "Cổ trang",
+  modern: "Hiện đại",
+  romance: "Tình cảm",
+  workplace: "Công sở",
+  wuxia: "Võ hiệp",
+  emotion: "Cảm xúc",
+  family: "Gia đình",
+  comprehension: "Nghe hiểu",
+  // social
+  social: "Mạng xã hội",
+  xiaohongshu: "Xiaohongshu",
+  douyin: "Douyin",
+  weibo: "Weibo",
+  slang: "Tiếng lóng",
+  // news
+  news: "Tin tức",
+  weather: "Thời tiết",
+  visa: "Visa",
+  politics: "Chính trị",
+  economy: "Kinh tế",
+  health: "Sức khoẻ",
+  environment: "Môi trường",
+  // misc helpers (used in vocab/sentence tags occasionally)
+  greeting: "Chào hỏi",
+  pronoun: "Đại từ",
+  verb: "Động từ",
+  adjective: "Tính từ",
+  adverb: "Trạng từ",
+  conjunction: "Liên từ",
+  particle: "Tiểu từ",
+  time: "Thời gian",
+  language: "Ngôn ngữ",
+  identity: "Bản thân",
+  service: "Dịch vụ",
+  trust: "Tin cậy",
+  title: "Xưng hô",
+  polite: "Lịch sự",
+  casual: "Casual",
+  wechat: "WeChat",
+  classical: "Văn cổ",
+  music: "Nhạc",
+  memory: "Trí nhớ",
+  abstract: "Trừu tượng",
+  logistics: "Logistics",
+  culture: "Văn hoá",
+  beauty: "Làm đẹp",
+  AI: "AI",
+  productivity: "Hiệu suất",
+};
+
+/** Look up a Vietnamese label for a topic tag; falls back to the raw tag. */
+export function tagLabel(tag: string): string {
+  return TAG_LABEL[tag] || tag;
+}
+
 export const CATEGORY_LABEL: Record<RealFeedCategoryGroup, string> = {
   travel: "Du lịch",
   food: "Ẩm thực",

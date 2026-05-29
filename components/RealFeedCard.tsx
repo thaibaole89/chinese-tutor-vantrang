@@ -2,6 +2,7 @@
 
 import type { RealFeedItem } from "@/lib/types";
 import { LearningVisual } from "./LearningVisual";
+import { tagLabel } from "@/lib/realFeed";
 
 const SOURCE_LABEL: Record<RealFeedItem["sourceType"], string> = {
   news: "Tin tức",
@@ -40,7 +41,7 @@ export function RealFeedCard({ item, open, onToggle }: Props) {
               <span className="chip">{item.difficulty}</span>
               {item.topicTags.slice(0, 3).map((t) => (
                 <span key={t} className="chip">
-                  {t}
+                  {tagLabel(t)}
                 </span>
               ))}
             </div>

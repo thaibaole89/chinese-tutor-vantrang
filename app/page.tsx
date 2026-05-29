@@ -31,7 +31,7 @@ const WECHAT_DRILL_VISUAL: VisualSpec = {
   emoji: "💬",
   gradient: "wechat",
   altVi: "Minh hoạ luyện soạn tin nhắn trong 3 tông giọng",
-  captionVi: "Soạn tin: thân thiện · lịch sự · cứng rắn",
+  captionVi: "Soạn tin: thân mật · lịch sự · tự nhiên mềm",
   illustrationPrompt:
     "Three stacked chat bubbles in different tones (warm, neutral, firm), abstract messaging illustration, no readable text, no logos",
 };
@@ -160,7 +160,7 @@ export default function DashboardPage() {
                 <div className="mt-2 zh text-xl font-bold leading-tight">微信练习</div>
                 <div className="mt-1 text-base font-bold">Soạn tin 3 tông giọng</div>
                 <div className="text-xs font-light text-muted mt-1 tracking-[0.3px]">
-                  Thân thiện · lịch sự · cứng rắn
+                  Casual · Polite · Soft natural
                 </div>
                 <div className="mt-3">
                   <span className="btn-text-link">SOẠN TIN</span>

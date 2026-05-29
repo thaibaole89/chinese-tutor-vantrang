@@ -9,6 +9,7 @@ import {
   getAllRealFeedItems,
   listAllTopicTags,
   listAllSourceTypes,
+  tagLabel,
 } from "@/lib/realFeed";
 import type { RealFeedCategoryGroup, RealFeedSource } from "@/lib/types";
 
@@ -106,7 +107,7 @@ export default function RealFeedPage() {
               </FilterChip>
               {tags.map((t) => (
                 <FilterChip key={t} active={tag === t} onClick={() => setTag(t)}>
-                  {t}
+                  {tagLabel(t)}
                 </FilterChip>
               ))}
             </div>
