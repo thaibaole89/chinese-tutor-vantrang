@@ -14,7 +14,7 @@ const ITEMS = [
   { href: "/real-feed", label: "Khám phá" },
   { href: "/wechat-coach", label: "Chat Coach" },
   { href: "/roleplay", label: "Hội thoại" },
-  { href: "/flashcards", label: "Flashcards" },
+  { href: "/flashcards", label: "Thẻ từ" },
   { href: "/domain-packs", label: "Chủ đề" },
   { href: "/lyrics-mode", label: "Lời bài hát" },
   { href: "/mistakes", label: "Lỗi cần ôn" },
