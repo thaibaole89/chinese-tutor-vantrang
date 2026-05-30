@@ -12,7 +12,6 @@ import {
 } from "@/lib/cardAdapter";
 import { usePinyinPreference } from "@/lib/pinyinPreference";
 import { SpeakButton } from "./SpeakButton";
-import { TopicImage } from "./TopicImage";
 import { ExampleBreakdown } from "./ExampleBreakdown";
 import { visualForCardTopic } from "@/data/visuals";
 import { getFlashcards, upsertVocabAsFlashcards } from "@/lib/storage";
@@ -160,9 +159,28 @@ export function CardFirstHome() {
         </div>
       ) : (
         <div className="border border-hairline bg-canvas overflow-hidden">
-          {/* Topic illustration — modest accent above the text; Chinese stays
-              the hero. h-28 mobile / h-32 sm so it never crowds the sentence. */}
-          <TopicImage visual={visualForCardTopic(card.topic)} heightClass="h-28 sm:h-32" />
+          {/* Topic illustration — shown at its natural 3:2 ratio so the whole
+              scene is visible (the old wide-but-short crop hid ~85% of the
+              image on desktop). Centered on a soft strip with max-w-md so it
+              never grows oversized on wide viewports. */}
+          {(() => {
+            const v = visualForCardTopic(card.topic);
+            if (!v) return null;
+            return (
+              <div className="bg-surface-soft flex justify-center overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={v.src}
+                  alt={v.alt}
+                  width={768}
+                  height={512}
+                  loading="lazy"
+                  decoding="async"
+                  className="block w-full max-w-md h-auto"
+                />
+              </div>
+            );
+          })()}
 
           {/* Header strip — topic chip + saved feedback */}
           <div className="px-5 pt-4 pb-2 flex items-center justify-between">
