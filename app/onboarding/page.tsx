@@ -22,24 +22,36 @@ const LEVELS: { value: UserLevel; label: string }[] = [
   { value: "advanced", label: "Cao cấp" },
 ];
 
-const INTERESTS: Interest[] = [
-  "business",
-  "finance",
-  "crypto",
-  "AI",
-  "current_news",
-  "WeChat",
-  "meetings",
-  "travel",
-  "food",
+// Vân Trang lifestyle options — labels in Vietnamese, raw enum values
+// preserved so onboarding stays type-compatible with UserProfile.
+// Business/finance/crypto/AI/meetings/exam_hsk intentionally hidden.
+const GOAL_OPTIONS: { value: Goal; label: string }[] = [
+  { value: "daily_communication", label: "Giao tiếp hằng ngày" },
+  { value: "travel", label: "Du lịch Trung Quốc" },
+  { value: "media", label: "Xem phim Trung" },
+  { value: "social_reading", label: "Đọc mạng xã hội + tin tức cơ bản" },
+  { value: "shopping_food", label: "Mua sắm, ăn uống, khách sạn" },
 ];
-const GOALS: Goal[] = ["daily_communication", "business_chinese", "exam_hsk", "travel", "media"];
-const METHODS: LearningMethod[] = [
-  "role_play",
-  "practical_use",
-  "minimal_theory",
-  "flashcards",
-  "reading",
+
+const INTEREST_OPTIONS: { value: Interest; label: string }[] = [
+  { value: "travel", label: "Du lịch" },
+  { value: "food", label: "Ẩm thực" },
+  { value: "hotel", label: "Khách sạn" },
+  { value: "shopping", label: "Mua sắm" },
+  { value: "drama", label: "Drama Trung Quốc" },
+  { value: "xiaohongshu", label: "Xiaohongshu" },
+  { value: "douyin", label: "Douyin" },
+  { value: "weibo", label: "Weibo" },
+  { value: "WeChat", label: "WeChat" },
+  { value: "current_news", label: "Tin tức đời sống" },
+];
+
+const METHOD_OPTIONS: { value: LearningMethod; label: string }[] = [
+  { value: "role_play", label: "Đóng vai (role-play)" },
+  { value: "practical_use", label: "Dùng thực tế" },
+  { value: "minimal_theory", label: "Ít lý thuyết" },
+  { value: "flashcards", label: "Flashcards" },
+  { value: "reading", label: "Đọc" },
 ];
 
 export default function OnboardingPage() {
@@ -67,10 +79,10 @@ export default function OnboardingPage() {
   return (
     <section className="px-6 py-section">
       <header className="mb-8">
-        <div className="label-uppercase text-muted">Onboarding</div>
-        <h1 className="text-4xl font-bold mt-2">Profile học tập</h1>
+        <div className="label-uppercase text-muted">Thiết lập</div>
+        <h1 className="text-4xl font-bold mt-2">Hồ sơ học tập</h1>
         <p className="text-sm font-light text-muted mt-2">
-          Chỉnh nhanh để AI gợi ý bài học phù hợp.
+          Chỉnh nhanh để app gợi ý bài học phù hợp với Vân Trang.
         </p>
       </header>
 
@@ -106,12 +118,16 @@ export default function OnboardingPage() {
         </Field>
 
         <Field label="Mục tiêu">
-          <ChipGroup options={GOALS} selected={profile.goals} onToggle={(v) => toggle("goals", v)} />
+          <ChipGroup
+            options={GOAL_OPTIONS}
+            selected={profile.goals}
+            onToggle={(v) => toggle("goals", v)}
+          />
         </Field>
 
         <Field label="Sở thích / chủ đề">
           <ChipGroup
-            options={INTERESTS}
+            options={INTEREST_OPTIONS}
             selected={profile.interests}
             onToggle={(v) => toggle("interests", v)}
           />
@@ -119,7 +135,7 @@ export default function OnboardingPage() {
 
         <Field label="Phương pháp ưa thích">
           <ChipGroup
-            options={METHODS}
+            options={METHOD_OPTIONS}
             selected={profile.learningMethod}
             onToggle={(v) => toggle("learningMethod", v)}
           />
@@ -128,7 +144,7 @@ export default function OnboardingPage() {
 
       <div className="flex justify-end mt-8">
         <button onClick={save} className="btn-primary">
-          LƯU VÀ VỀ DASHBOARD
+          LƯU VÀ VỀ TRANG CHỦ
         </button>
       </div>
     </section>
@@ -144,27 +160,27 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
-function ChipGroup({
+function ChipGroup<T extends string>({
   options,
   selected,
   onToggle,
 }: {
-  options: string[];
-  selected: string[];
-  onToggle: (v: string) => void;
+  options: { value: T; label: string }[];
+  selected: readonly string[];
+  onToggle: (v: T) => void;
 }) {
   return (
     <div className="flex flex-wrap gap-2">
       {options.map((o) => {
-        const on = selected.includes(o);
+        const on = selected.includes(o.value);
         return (
           <button
-            key={o}
+            key={o.value}
             type="button"
-            onClick={() => onToggle(o)}
+            onClick={() => onToggle(o.value)}
             className={on ? "chip chip-active" : "chip"}
           >
-            {o}
+            {o.label}
           </button>
         );
       })}

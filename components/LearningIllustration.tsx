@@ -439,7 +439,7 @@ function SceneSlangRegister() {
         {/* right — business */}
         <div className="relative bg-gradient-to-br from-slate-100 via-blue-50 to-white border-l border-ink-200">
           <div className="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider text-sky-700">
-            BUSINESS-SAFE
+            LỊCH SỰ
           </div>
           {/* bar chart card */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] aspect-[4/3] bg-white border border-ink-200 rounded shadow-sm p-2">

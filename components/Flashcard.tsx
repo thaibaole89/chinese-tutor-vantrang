@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import type { FlashcardState, ReviewStatus } from "@/lib/types";
 import { SpeakButton } from "./SpeakButton";
+import { usePinyinPreference } from "@/lib/pinyinPreference";
+import { tagLabel } from "@/lib/realFeed";
 
 interface Props {
   card: FlashcardState;
@@ -17,14 +19,15 @@ interface Props {
 
 const STATUSES: ReviewStatus[] = ["new", "learning", "familiar", "mastered"];
 const STATUS_LABEL: Record<ReviewStatus, string> = {
-  new: "New",
-  learning: "Learning",
-  familiar: "Familiar",
-  mastered: "Mastered",
+  new: "Mới",
+  learning: "Đang học",
+  familiar: "Quen",
+  mastered: "Thuộc",
 };
 
 export function Flashcard({ card, onSetStatus, imageFirst = false }: Props) {
   const [flipped, setFlipped] = useState(false);
+  const { showPinyin } = usePinyinPreference();
 
   // Reset flip when card changes (so navigation prev/next always starts at front).
   useEffect(() => {
@@ -74,7 +77,9 @@ export function Flashcard({ card, onSetStatus, imageFirst = false }: Props) {
 
             <div className="zh text-5xl sm:text-6xl font-bold leading-none mb-3">{card.hanzi}</div>
             <div className="flex items-center gap-3">
-              <span className="text-base text-muted font-light">{card.pinyin}</span>
+              {showPinyin ? (
+                <span className="text-base text-muted font-light">{card.pinyin}</span>
+              ) : null}
               <SpeakButton text={card.hanzi} size="md" />
             </div>
 
@@ -89,7 +94,7 @@ export function Flashcard({ card, onSetStatus, imageFirst = false }: Props) {
               <div className="mt-6 flex gap-1.5 flex-wrap justify-center">
                 {card.tags.slice(0, 3).map((t) => (
                   <span key={t} className="chip">
-                    {t}
+                    {tagLabel(t)}
                   </span>
                 ))}
               </div>
@@ -137,7 +142,7 @@ export function Flashcard({ card, onSetStatus, imageFirst = false }: Props) {
               <div className="mt-3 flex gap-1.5 flex-wrap">
                 {card.tags.slice(0, 4).map((t) => (
                   <span key={t} className="chip">
-                    {t}
+                    {tagLabel(t)}
                   </span>
                 ))}
               </div>
@@ -147,7 +152,7 @@ export function Flashcard({ card, onSetStatus, imageFirst = false }: Props) {
       </div>
 
       <div className="mt-6 flex items-center gap-2 flex-wrap">
-        <span className="label-uppercase text-muted mr-2">Status:</span>
+        <span className="label-uppercase text-muted mr-2">Trạng thái:</span>
         {STATUSES.map((s) => {
           const active = card.reviewStatus === s;
           return (

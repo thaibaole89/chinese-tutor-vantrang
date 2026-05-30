@@ -1,11 +1,21 @@
+"use client";
+
 import type { VocabularyItem } from "@/lib/types";
 import { SpeakButton } from "./SpeakButton";
+import { usePinyinPreference } from "@/lib/pinyinPreference";
 
 interface Props {
   items: VocabularyItem[];
 }
 
+const FREQ_LABEL: Record<VocabularyItem["frequencyLevel"], string> = {
+  high: "Hay dùng",
+  medium: "Thường",
+  low: "Ít gặp",
+};
+
 export function LessonVocabulary({ items }: Props) {
+  const { showPinyin } = usePinyinPreference();
   return (
     <ul className="divide-y divide-hairline border-y border-hairline">
       {items.map((v) => (
@@ -15,7 +25,9 @@ export function LessonVocabulary({ items }: Props) {
               <div className="zh text-3xl font-bold leading-none">{v.hanzi}</div>
               <SpeakButton text={v.hanzi} size="sm" tone="ghost" />
             </div>
-            <div className="text-xs font-normal text-muted mt-1">{v.pinyin}</div>
+            {showPinyin ? (
+              <div className="text-xs font-normal text-muted mt-1">{v.pinyin}</div>
+            ) : null}
           </div>
           <div className="flex-1 min-w-0">
             <div className="text-base font-bold">{v.vietnameseMeaning}</div>
@@ -28,7 +40,7 @@ export function LessonVocabulary({ items }: Props) {
           <span
             className={`chip shrink-0 ${v.frequencyLevel === "high" ? "chip-accent" : ""}`}
           >
-            {v.frequencyLevel}
+            {FREQ_LABEL[v.frequencyLevel]}
           </span>
         </li>
       ))}

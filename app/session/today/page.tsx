@@ -5,6 +5,7 @@ import Link from "next/link";
 import { LearningVisual } from "@/components/LearningVisual";
 import { SpeakButton } from "@/components/SpeakButton";
 import { todaysRealFeedItem } from "@/lib/realFeed";
+import { CATEGORY_LABEL, categoryGroupFor } from "@/lib/realFeed";
 import {
   getMistakes,
   getProgressSnapshot,
@@ -16,20 +17,28 @@ import type { Mistake, ProgressSnapshot } from "@/lib/types";
 
 type Step = 1 | 2 | 3;
 
-const STEP_META: Record<Step, { label: string; time: string; cta: string }> = {
-  1: { label: "Input — Real Chinese", time: "5 phút", cta: "MỞ REAL FEED" },
-  2: { label: "Speaking Output", time: "10 phút", cta: "BẮT ĐẦU NÓI" },
-  3: { label: "Mistake Review", time: "5 phút", cta: "VỀ DASHBOARD" },
+const DIFFICULTY_LABEL: Record<"easy" | "medium" | "hard", string> = {
+  easy: "Dễ",
+  medium: "Trung bình",
+  hard: "Khó",
 };
 
+const STEP_META: Record<Step, { label: string; time: string; cta: string }> = {
+  1: { label: "Đầu vào — Tiếng Trung thật", time: "5 phút", cta: "MỞ KHÁM PHÁ" },
+  2: { label: "Luyện nói", time: "10 phút", cta: "BẮT ĐẦU NÓI" },
+  3: { label: "Ôn lỗi", time: "5 phút", cta: "VỀ TRANG CHỦ" },
+};
+
+// Lifestyle WeChat practice prompts for Vân Trang — travel, drama, friends,
+// family, online comments. No business / MOU / VIP-host / project content.
 const WECHAT_PROMPTS = [
-  "Nhắn anh Vương xác nhận lịch họp 3 giờ chiều mai, gửi tài liệu trước.",
-  "Đề nghị đối tác giảm giá 10% vì khối lượng lớn lần này.",
-  "Brief team Trung Quốc kế hoạch dùng AI cho CS tuần tới.",
-  "Push back đối tác về điều khoản phạt — đề xuất số mềm hơn.",
-  "Hỏi tiến độ dự án + 3 rủi ro chính tuần này.",
-  "Cảm ơn khách VIP đã quay lại lần thứ ba, gợi ý upgrade phòng.",
-  "Đề xuất scope MOU + timeline + phí hỗ trợ kỹ thuật.",
+  "Nhắn host Airbnb xác nhận giờ check-in muộn (tới 11h đêm).",
+  "Hỏi lễ tân khách sạn giờ ăn sáng + cách lấy xe đi sân bay.",
+  "Khen bạn Trung Quốc set ảnh Tết, hỏi chụp ở đâu, dùng giọng thân.",
+  "Reply 1 comment Xiaohongshu hỏi quán lẩu nào ngon ở Thành Đô.",
+  "Nhắn bạn đồng hành dời lịch tour sáng mai từ 8h sang 9h.",
+  "Comment Weibo của diễn viên mình thích sau khi xem tập mới.",
+  "Hỏi shop online TQ giá ship Việt Nam + thời gian giao 1 món đồ.",
 ];
 
 function todaysPrompt(): string {
@@ -77,13 +86,13 @@ export default function TodaySessionPage() {
       {/* Hero */}
       <section className="bg-ink-900 text-white">
         <div className="px-6 py-section">
-          <div className="label-uppercase text-on-dark-soft">Today's 20-Min Session</div>
+          <div className="label-uppercase text-on-dark-soft">Phiên học 20 phút hôm nay</div>
           <h1 className="mt-4 text-4xl sm:text-5xl font-bold leading-[1.05]">
-            Strict loop: nghe → nói → ôn lỗi
+            Vòng học: nghe → nói → ôn lỗi
           </h1>
           <p className="mt-3 max-w-2xl text-base font-light text-on-dark-soft">
             3 bước, mỗi bước có giới hạn thời gian. Hoàn thành đủ trong 20 phút —
-            input 5' · speaking 10' · mistake review 5'.
+            đầu vào 5' · luyện nói 10' · ôn lỗi 5'.
           </p>
         </div>
       </section>
@@ -116,7 +125,7 @@ export default function TodaySessionPage() {
                       {done ? "✓" : n}
                     </span>
                     <span className="flex flex-col min-w-0">
-                      <span className="truncate">Step {n}</span>
+                      <span className="truncate">Bước {n}</span>
                       <span className="text-[10px] font-normal text-muted tracking-[0.3px] truncate">
                         {STEP_META[n].time}
                       </span>
@@ -136,9 +145,9 @@ export default function TodaySessionPage() {
             <LearningVisual spec={feed.visual} density="full" />
             <div className="p-6 space-y-4">
               <div className="flex items-center gap-3">
-                <div className="label-uppercase text-bmw-blue">Step 1 — Input · 5 phút</div>
-                <span className="chip">{feed.sourceType}</span>
-                <span className="chip">{feed.difficulty}</span>
+                <div className="label-uppercase text-bmw-blue">Bước 1 — Đầu vào · 5 phút</div>
+                <span className="chip">{CATEGORY_LABEL[categoryGroupFor(feed)]}</span>
+                <span className="chip">{DIFFICULTY_LABEL[feed.difficulty]}</span>
               </div>
               <div className="flex items-start gap-3">
                 <h2 className="zh text-2xl sm:text-3xl font-bold flex-1">{feed.titleZh}</h2>
@@ -181,10 +190,10 @@ export default function TodaySessionPage() {
                     : "LƯU 5 TỪ → FLASHCARDS"}
                 </button>
                 <Link href="/real-feed" className="btn-secondary">
-                  MỞ FULL REAL FEED
+                  XEM TẤT CẢ
                 </Link>
                 <button type="button" onClick={() => setStep(2)} className="btn-text-link">
-                  STEP 2: SPEAKING →
+                  BƯỚC 2: LUYỆN NÓI →
                 </button>
               </div>
             </div>
@@ -198,14 +207,14 @@ export default function TodaySessionPage() {
                 type: "learning_scene",
                 emoji: "🎙️",
                 gradient: "wechat",
-                altVi: "Step 2 — luyện nói / soạn tin WeChat",
-                captionVi: "Step 2 / 3 — Speaking output · 10 phút",
+                altVi: "Bước 2 — luyện nói / soạn tin WeChat",
+                captionVi: "Bước 2 / 3 — Luyện nói · 10 phút",
               }}
               density="compact"
             />
             <div className="p-6 space-y-5">
               <div className="label-uppercase text-bmw-blue">
-                Step 2 — Speaking Output · 10 phút
+                Bước 2 — Luyện nói · 10 phút
               </div>
               <p className="text-sm font-light text-body">
                 Chọn 1 trong 2 — WeChat Drill cho viết tin, hoặc Role-play cho thoại nhiều
@@ -225,7 +234,7 @@ export default function TodaySessionPage() {
                   "{prompt}"
                 </div>
                 <Link href="/wechat-coach" className="btn-primary inline-flex">
-                  PRACTICE WECHAT MESSAGE
+                  LUYỆN VIẾT WECHAT
                 </Link>
               </div>
 
@@ -233,30 +242,31 @@ export default function TodaySessionPage() {
               <div className="border border-hairline bg-canvas p-5 space-y-3">
                 <div className="flex items-baseline justify-between gap-3">
                   <div>
-                    <div className="label-uppercase text-muted">Option B — Role-play</div>
+                    <div className="label-uppercase text-muted">Lựa chọn B — Hội thoại</div>
                     <div className="text-base font-bold mt-1">
-                      Hội thoại business 3-5 lượt với AI
+                      Hội thoại 3-5 lượt với AI (đời thường)
                     </div>
                   </div>
                   <span className="chip">~8 phút</span>
                 </div>
                 <p className="text-xs font-light text-muted">
-                  Thử các scenario mới: MOU negotiation, VIP airport reception, project progress.
+                  Thử các tình huống: check-in khách sạn, gọi món ở quán, hỏi đường, mặc cả ở chợ
+                  đêm, đặt taxi/Didi, comment Xiaohongshu, bàn phim với bạn.
                 </p>
                 <Link
                   href={`/roleplay?scenario=${feed.roleplayScenario.id}`}
                   className="btn-primary inline-flex"
                 >
-                  BẮT ĐẦU ROLE-PLAY
+                  BẮT ĐẦU HỘI THOẠI
                 </Link>
               </div>
 
               <div className="pt-4 border-t border-hairline flex justify-between">
                 <button type="button" onClick={() => setStep(1)} className="btn-secondary">
-                  ← STEP 1
+                  ← BƯỚC 1
                 </button>
                 <button type="button" onClick={() => setStep(3)} className="btn-text-link">
-                  STEP 3: ÔN LỖI →
+                  BƯỚC 3: ÔN LỖI →
                 </button>
               </div>
             </div>
@@ -270,14 +280,14 @@ export default function TodaySessionPage() {
                 type: "learning_scene",
                 emoji: "🔁",
                 gradient: "warm",
-                altVi: "Step 3 — ôn lỗi cũ",
-                captionVi: "Step 3 / 3 — Mistake review · 5 phút",
+                altVi: "Bước 3 — ôn lỗi cũ",
+                captionVi: "Bước 3 / 3 — Ôn lỗi · 5 phút",
               }}
               density="compact"
             />
             <div className="p-6 space-y-5">
               <div className="label-uppercase text-bmw-blue">
-                Step 3 — Mistake Review · 5 phút
+                Bước 3 — Ôn lỗi · 5 phút
               </div>
 
               {openMistakes.length === 0 ? (

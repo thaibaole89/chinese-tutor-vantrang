@@ -1,12 +1,17 @@
+"use client";
+
 import type { Register, SentencePattern, DialogueLine } from "@/lib/types";
 import { SpeakButton } from "./SpeakButton";
+import { usePinyinPreference } from "@/lib/pinyinPreference";
 
+// Vietnamese labels — Vân Trang lifestyle context. Old corporate labels
+// ("Business polite", "Firm negotiation") replaced.
 const REGISTER_LABEL: Record<Register, string> = {
-  casual: "Casual",
+  casual: "Thân mật",
   wechat: "WeChat",
-  business_polite: "Business polite",
-  firm_negotiation: "Firm negotiation",
-  formal_written: "Formal written",
+  business_polite: "Lịch sự",
+  firm_negotiation: "Trang trọng",
+  formal_written: "Văn viết",
 };
 
 const REGISTER_TONE: Record<Register, string> = {
@@ -21,7 +26,7 @@ export function RegisterBadge({ register }: { register: Register }) {
   return (
     <span
       className={`inline-flex items-center px-2 py-0.5 text-[10px] font-bold uppercase tracking-[1px] border rounded-none ${REGISTER_TONE[register]}`}
-      title={`Register: ${REGISTER_LABEL[register]}`}
+      title={`Ngữ cảnh: ${REGISTER_LABEL[register]}`}
     >
       {REGISTER_LABEL[register]}
     </span>
@@ -29,6 +34,7 @@ export function RegisterBadge({ register }: { register: Register }) {
 }
 
 export function SentencePatternList({ items }: { items: SentencePattern[] }) {
+  const { showPinyin } = usePinyinPreference();
   return (
     <ul className="grid grid-cols-1 md:grid-cols-2 gap-px bg-hairline border border-hairline">
       {items.map((s) => (
@@ -37,13 +43,15 @@ export function SentencePatternList({ items }: { items: SentencePattern[] }) {
             <div className="zh text-xl font-bold flex-1 leading-snug">{s.zh}</div>
             <SpeakButton text={s.zh} size="sm" />
           </div>
-          <div className="text-xs font-normal text-muted mt-2 tracking-[0.3px]">{s.pinyin}</div>
+          {showPinyin ? (
+            <div className="text-xs font-normal text-muted mt-2 tracking-[0.3px]">{s.pinyin}</div>
+          ) : null}
           <div className="text-sm font-light text-body mt-2">{s.vi}</div>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             {s.register ? <RegisterBadge register={s.register} /> : null}
             {s.usageNoteVi ? (
               <div className="inline-block bg-surface-soft border border-hairline px-3 py-1.5 text-xs font-light text-body-strong">
-                <span className="label-uppercase text-bmw-blue mr-2">Note</span>
+                <span className="label-uppercase text-bmw-blue mr-2">Ghi chú</span>
                 {s.usageNoteVi}
               </div>
             ) : null}
@@ -55,10 +63,12 @@ export function SentencePatternList({ items }: { items: SentencePattern[] }) {
 }
 
 export function DialogueBlock({ lines }: { lines: DialogueLine[] }) {
+  const { showPinyin } = usePinyinPreference();
   return (
     <ul className="border-y border-hairline divide-y divide-hairline">
       {lines.map((line, i) => {
-        const isUser = /bao/i.test(line.speaker);
+        // Highlight Vân Trang's own lines in the dialogue (vs the partner).
+        const isUser = /vân trang|vantrang|bạn/i.test(line.speaker);
         return (
           <li
             key={i}
@@ -76,7 +86,11 @@ export function DialogueBlock({ lines }: { lines: DialogueLine[] }) {
                 <div className="zh text-lg font-bold flex-1 leading-snug">{line.zh}</div>
                 <SpeakButton text={line.zh} size="sm" rate={0.85} />
               </div>
-              <div className="text-xs font-normal text-muted mt-1 tracking-[0.3px]">{line.pinyin}</div>
+              {showPinyin ? (
+                <div className="text-xs font-normal text-muted mt-1 tracking-[0.3px]">
+                  {line.pinyin}
+                </div>
+              ) : null}
               <div className="text-sm font-light text-body mt-1">{line.vi}</div>
             </div>
           </li>

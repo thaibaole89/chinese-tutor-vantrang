@@ -8,6 +8,7 @@ import { LessonVocabulary } from "./LessonVocabulary";
 import { SentencePatternList } from "./SentencePatternList";
 import { LearningVisual } from "./LearningVisual";
 import { upsertVocabAsFlashcards } from "@/lib/storage";
+import { usePinyinPreference } from "@/lib/pinyinPreference";
 
 interface Props {
   item: RealFeedItem;
@@ -18,7 +19,7 @@ type SaveState =
   | { kind: "saved"; added: number; total: number };
 
 export function RealFeedLesson({ item }: Props) {
-  const [showPinyin, setShowPinyin] = useState(true);
+  const { showPinyin, setShowPinyin } = usePinyinPreference();
   const [showVi, setShowVi] = useState(true);
   const [save, setSave] = useState<SaveState>({ kind: "idle" });
 
@@ -61,9 +62,11 @@ export function RealFeedLesson({ item }: Props) {
                 <div className="zh text-lg font-bold leading-snug">
                   {item.annotatedPractice.sentence.zh}
                 </div>
-                <div className="text-xs font-normal text-muted mt-1 tracking-[0.3px]">
-                  {item.annotatedPractice.sentence.pinyin}
-                </div>
+                {showPinyin ? (
+                  <div className="text-xs font-normal text-muted mt-1 tracking-[0.3px]">
+                    {item.annotatedPractice.sentence.pinyin}
+                  </div>
+                ) : null}
                 <div className="text-sm font-light text-body mt-1">
                   {item.annotatedPractice.sentence.vi}
                 </div>
@@ -118,7 +121,7 @@ export function RealFeedLesson({ item }: Props) {
         </div>
       </div>
 
-      {/* 2. Spoken / business-safe versions side-by-side */}
+      {/* 2. Spoken / lịch sự versions side-by-side */}
       <div>
         <span className="label-uppercase text-muted block mb-3">
           Cách nói khác nhau theo ngữ cảnh
@@ -132,8 +135,8 @@ export function RealFeedLesson({ item }: Props) {
           />
           <RegisterCard
             tone="business"
-            label="Văn business-safe"
-            badge="Business polite"
+            label="Văn lịch sự"
+            badge="Polite"
             triplet={item.businessSafeVersion}
           />
         </div>
@@ -152,13 +155,13 @@ export function RealFeedLesson({ item }: Props) {
                 <div className="zh text-lg font-bold leading-snug">{item.originalZh.split("\n")[0]}</div>
               </div>
               <div className="p-5 bg-sky-50/40">
-                <div className="label-uppercase text-sky-700 mb-2">Business-safe</div>
+                <div className="label-uppercase text-sky-700 mb-2">Lịch sự</div>
                 <div className="zh text-lg font-bold leading-snug">{item.businessSafeVersion.zh}</div>
               </div>
             </div>
             <div className="px-5 py-3 bg-surface-soft border-t border-hairline text-xs font-light text-body">
               <span className="label-uppercase text-red-700 mr-2">Không dùng</span>
-              email formal · họp với regulator · tài liệu chính thức · pitch nhà đầu tư bảo thủ
+              tin nhắn cho người lạ lớn tuổi · tình huống trang trọng · viết caption công khai cho thương hiệu
             </div>
           </div>
         </div>
@@ -273,6 +276,7 @@ function RegisterCard({
   badge: string;
   triplet: ZhTriplet;
 }) {
+  const { showPinyin } = usePinyinPreference();
   const accent = tone === "spoken" ? "border-l-amber-500" : "border-l-bmw-blue";
   return (
     <div className={`bg-canvas p-5 border-l-4 ${accent}`}>
@@ -284,7 +288,9 @@ function RegisterCard({
         <SpeakButton text={triplet.zh} size="sm" />
       </div>
       <div className="zh text-lg font-bold mt-1 leading-snug">{triplet.zh}</div>
-      <div className="text-xs font-normal text-muted mt-1 tracking-[0.3px]">{triplet.pinyin}</div>
+      {showPinyin ? (
+        <div className="text-xs font-normal text-muted mt-1 tracking-[0.3px]">{triplet.pinyin}</div>
+      ) : null}
       <div className="text-sm font-light text-body mt-1">{triplet.vi}</div>
     </div>
   );

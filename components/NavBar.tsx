@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { PinyinToggle } from "./PinyinToggle";
 
 // Main nav for Vân Trang's lifestyle app. Labels are reoriented from
 // the business app: WeChat Coach → "Chat Coach", Domain Packs → "Chủ đề",
@@ -16,7 +17,7 @@ const ITEMS = [
   { href: "/flashcards", label: "Flashcards" },
   { href: "/domain-packs", label: "Chủ đề" },
   { href: "/lyrics-mode", label: "Lời bài hát" },
-  { href: "/mistakes", label: "Mistakes" },
+  { href: "/mistakes", label: "Lỗi cần ôn" },
   { href: "/progress", label: "Tiến độ" },
 ];
 
@@ -34,25 +35,32 @@ export function NavBar() {
             <div className="text-[11px] font-light text-muted">Du lịch · Phim · Mạng xã hội</div>
           </div>
         </Link>
-        <ul className="hidden md:flex items-center gap-4 lg:gap-5 xl:gap-6 overflow-x-auto">
-          {ITEMS.map((it) => {
-            const active = it.href === "/" ? pathname === "/" : pathname.startsWith(it.href);
-            return (
-              <li key={it.href} className="shrink-0">
-                <Link
-                  href={it.href}
-                  className={`text-[13px] lg:text-[14px] tracking-[0.3px] transition whitespace-nowrap ${
-                    active
-                      ? "text-ink-900 font-bold"
-                      : "text-muted font-normal hover:text-ink-900"
-                  }`}
-                >
-                  {it.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="hidden md:flex items-center gap-4 lg:gap-5 xl:gap-6">
+          <ul className="flex items-center gap-4 lg:gap-5 xl:gap-6 overflow-x-auto">
+            {ITEMS.map((it) => {
+              const active = it.href === "/" ? pathname === "/" : pathname.startsWith(it.href);
+              return (
+                <li key={it.href} className="shrink-0">
+                  <Link
+                    href={it.href}
+                    className={`text-[13px] lg:text-[14px] tracking-[0.3px] transition whitespace-nowrap ${
+                      active
+                        ? "text-ink-900 font-bold"
+                        : "text-muted font-normal hover:text-ink-900"
+                    }`}
+                  >
+                    {it.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+          <PinyinToggle />
+        </div>
+        {/* Mobile: pinyin toggle on the right of header row */}
+        <div className="md:hidden">
+          <PinyinToggle />
+        </div>
       </div>
       {/* Mobile horizontal scroll nav */}
       <ul className="md:hidden flex items-center gap-5 overflow-x-auto px-6 pb-3 border-t border-hairline pt-2">

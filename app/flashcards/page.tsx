@@ -4,11 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { Flashcard } from "@/components/Flashcard";
 import { buildSeedFlashcards } from "@/data/seedFlashcards";
-import { buildLifestyleFlashcards } from "@/data/lifestyleFlashcards";
 import { domainPacks } from "@/data/domainPacks";
 import {
   getFlashcards,
-  saveFlashcards,
   updateFlashcardStatus,
   upsertFlashcards,
   upsertVocabAsFlashcards,
@@ -17,10 +15,10 @@ import type { FlashcardState, ReviewStatus } from "@/lib/types";
 
 const FILTERS: Array<{ value: "all" | ReviewStatus; label: string }> = [
   { value: "all", label: "Tất cả" },
-  { value: "new", label: "New" },
-  { value: "learning", label: "Learning" },
-  { value: "familiar", label: "Familiar" },
-  { value: "mastered", label: "Mastered" },
+  { value: "new", label: "Mới" },
+  { value: "learning", label: "Đang học" },
+  { value: "familiar", label: "Quen" },
+  { value: "mastered", label: "Thuộc" },
 ];
 
 export default function FlashcardsPage() {
@@ -59,29 +57,8 @@ export default function FlashcardsPage() {
     setCards(merged);
     setFeedback(
       added > 0
-        ? `✓ Saved ${added} cards to Flashcards. (Tổng ${merged.length} thẻ.)`
-        : "All Week 1 cards are already in Flashcards.",
-    );
-  };
-
-  const seedLifestyle = () => {
-    const newCards = buildLifestyleFlashcards();
-    const existing = getFlashcards();
-    const byId = new Map(existing.map((c) => [c.id, c] as const));
-    let added = 0;
-    for (const card of newCards) {
-      if (!byId.has(card.id)) {
-        byId.set(card.id, card);
-        added += 1;
-      }
-    }
-    const merged = Array.from(byId.values());
-    saveFlashcards(merged);
-    setCards(merged);
-    setFeedback(
-      added > 0
-        ? `✓ Saved ${added} lifestyle cards to Flashcards. (Tổng ${merged.length} thẻ.)`
-        : "All lifestyle cards are already in Flashcards.",
+        ? `✓ Đã lưu ${added} thẻ. (Tổng ${merged.length} thẻ.)`
+        : "Tất cả thẻ tuần 1 đã có trong Flashcards.",
     );
   };
 
@@ -95,8 +72,8 @@ export default function FlashcardsPage() {
     setCards(updated);
     setFeedback(
       added > 0
-        ? `✓ Saved ${added} cards to Flashcards from "${pack.title}". (Tổng ${total} thẻ.)`
-        : `All ${pack.title} cards are already in Flashcards.`,
+        ? `✓ Đã lưu ${added} thẻ từ "${pack.title}". (Tổng ${total} thẻ.)`
+        : `Tất cả thẻ "${pack.title}" đã có trong Flashcards.`,
     );
   };
 
@@ -114,7 +91,7 @@ export default function FlashcardsPage() {
         <div className="label-uppercase text-muted">Flashcards</div>
         <h1 className="text-4xl font-bold mt-2">Ôn từ vựng</h1>
         <p className="text-sm font-light text-muted mt-2">
-          Tổng {cards.length} thẻ • Mastered {counts.mastered} • Learning {counts.learning} • New{" "}
+          Tổng {cards.length} thẻ • Thuộc {counts.mastered} • Đang học {counts.learning} • Mới{" "}
           {counts.new}
         </p>
         <div className="mt-4 flex items-center gap-3">
@@ -153,8 +130,8 @@ export default function FlashcardsPage() {
       {isAbsoluteEmpty ? (
         <EmptyStateCTA
           onSeedWeek1={seedWeek1}
-          onSeedNeg={() => seedFromPack("pack-negotiation")}
-          onSeedLifestyle={seedLifestyle}
+          onSeedTravel={() => seedFromPack("pack-travel")}
+          onSeedDramaModern={() => seedFromPack("pack-drama-modern")}
         />
       ) : (
         <>
@@ -181,8 +158,8 @@ export default function FlashcardsPage() {
               </div>
               <EmptyStateCTA
                 onSeedWeek1={seedWeek1}
-                onSeedNeg={() => seedFromPack("pack-negotiation")}
-                onSeedLifestyle={seedLifestyle}
+                onSeedTravel={() => seedFromPack("pack-travel")}
+                onSeedDramaModern={() => seedFromPack("pack-drama-modern")}
               />
             </div>
           ) : current ? (
@@ -221,35 +198,35 @@ export default function FlashcardsPage() {
 
 function EmptyStateCTA({
   onSeedWeek1,
-  onSeedNeg,
-  onSeedLifestyle,
+  onSeedTravel,
+  onSeedDramaModern,
 }: {
   onSeedWeek1: () => void;
-  onSeedNeg: () => void;
-  onSeedLifestyle?: () => void;
+  onSeedTravel: () => void;
+  onSeedDramaModern?: () => void;
 }) {
   return (
     <div className="border border-hairline bg-canvas p-8 sm:p-10 space-y-4">
       <div className="label-uppercase text-bmw-blue">Bắt đầu</div>
       <h2 className="text-2xl font-bold leading-snug">Bạn chưa có thẻ nào trong Flashcards.</h2>
       <p className="text-sm font-light text-body max-w-prose">
-        Nạp một bộ thẻ mẫu để bắt đầu luyện. Bạn có thể thêm vocab từ Real Feed, Domain Packs,
-        hoặc Lifestyle pack (đồng hồ, xe, sneakers, nước hoa…) bất kỳ lúc nào.
+        Nạp một bộ thẻ mẫu để bắt đầu luyện. Bạn có thể thêm vocab từ Real Feed, các Chủ đề
+        (du lịch, ăn uống, mua sắm, phim cổ trang & hiện đại, mạng xã hội) bất kỳ lúc nào.
       </p>
       <div className="pt-3 flex flex-wrap gap-3">
         <button type="button" onClick={onSeedWeek1} className="btn-primary">
-          NẠP FLASHCARDS MẪU TỪ WEEK 1
+          NẠP FLASHCARDS MẪU TUẦN 1
         </button>
-        <button type="button" onClick={onSeedNeg} className="btn-secondary">
-          LƯU TỪ BUSINESS NEGOTIATION
+        <button type="button" onClick={onSeedTravel} className="btn-secondary">
+          NẠP TỪ DU LỊCH ✈️
         </button>
-        {onSeedLifestyle ? (
-          <button type="button" onClick={onSeedLifestyle} className="btn-secondary">
-            LƯU LIFESTYLE PACK (👟⌚🏨)
+        {onSeedDramaModern ? (
+          <button type="button" onClick={onSeedDramaModern} className="btn-secondary">
+            NẠP TỪ PHIM HIỆN ĐẠI 💕
           </button>
         ) : null}
         <Link href="/real-feed" className="btn-text-link">
-          MỞ REAL FEED
+          MỞ KHÁM PHÁ
         </Link>
       </div>
     </div>

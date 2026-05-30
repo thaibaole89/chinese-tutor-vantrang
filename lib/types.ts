@@ -124,12 +124,20 @@ export type QuizType =
   | "complete_sentence"
   | "roleplay_response";
 
+/**
+ * Goal / Interest unions: legacy business values (business_chinese, finance,
+ * crypto, AI, meetings, etc.) are retained ONLY so old localStorage profiles
+ * don't fail type-check on read. The Vân Trang Onboarding UI surfaces only
+ * the lifestyle-relevant subset via GOAL_OPTIONS_VT / INTEREST_OPTIONS_VT.
+ */
 export type Goal =
   | "daily_communication"
   | "business_chinese"
   | "exam_hsk"
   | "travel"
-  | "media";
+  | "media"
+  | "social_reading"
+  | "shopping_food";
 
 export type Interest =
   | "business"
@@ -140,7 +148,13 @@ export type Interest =
   | "WeChat"
   | "meetings"
   | "travel"
-  | "food";
+  | "food"
+  | "hotel"
+  | "shopping"
+  | "drama"
+  | "xiaohongshu"
+  | "douyin"
+  | "weibo";
 
 export type LearningMethod =
   | "role_play"

@@ -108,7 +108,7 @@ export const REAL_FEED_ILLUSTRATIONS: Record<string, LocalIllustration> = {
     id: "rf-8",
     sceneType: "slang_register",
     imageSrc: "/illustrations/real-feed/slang-register.png",
-    altVi: "So sánh casual 太卷了 vs business-safe 竞争非常激烈",
+    altVi: "So sánh casual 太卷了 vs lịch sự 竞争非常激烈",
     captionVi: "Cùng một ý — chọn từ theo đối tượng đang nghe",
     fallbackEmoji: "🌀",
     illustrationPrompt:
