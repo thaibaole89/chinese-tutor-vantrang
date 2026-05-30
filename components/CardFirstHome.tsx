@@ -13,6 +13,7 @@ import {
 import { usePinyinPreference } from "@/lib/pinyinPreference";
 import { SpeakButton } from "./SpeakButton";
 import { TopicImage } from "./TopicImage";
+import { ExampleBreakdown } from "./ExampleBreakdown";
 import { visualForCardTopic } from "@/data/visuals";
 import { getFlashcards, upsertVocabAsFlashcards } from "@/lib/storage";
 
@@ -176,24 +177,35 @@ export function CardFirstHome() {
             </span>
           </div>
 
-          {/* Card body — tap to reveal */}
-          <button
-            type="button"
-            onClick={() => setRevealed((r) => !r)}
-            aria-pressed={revealed}
-            className="block w-full text-left px-5 pt-2 pb-6 min-h-[280px] sm:min-h-[340px] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-ink-900"
-          >
-            {/* Chinese — large */}
-            <div className="zh text-[34px] sm:text-[42px] font-bold leading-tight break-words">
-              {card.chinese}
-            </div>
-
-            {/* Pinyin — smaller, muted */}
-            {showPinyin && card.pinyin ? (
-              <div className="mt-2 text-sm sm:text-base font-light text-muted tracking-[0.3px] break-words">
-                {card.pinyin}
+          {/* Card body — tap the phrase to reveal. The reveal toggle and the
+              revealed detail are SIBLINGS (not nested) so the example's listen
+              button is valid HTML (a <button> can't live inside a <button>). */}
+          <div className="px-5 pt-2 pb-6 min-h-[280px] sm:min-h-[340px]">
+            <button
+              type="button"
+              onClick={() => setRevealed((r) => !r)}
+              aria-pressed={revealed}
+              aria-expanded={revealed}
+              className="block w-full text-left focus:outline-none focus:ring-2 focus:ring-inset focus:ring-ink-900"
+            >
+              {/* Chinese — large */}
+              <div className="zh text-[34px] sm:text-[42px] font-bold leading-tight break-words">
+                {card.chinese}
               </div>
-            ) : null}
+
+              {/* Pinyin — smaller, muted */}
+              {showPinyin && card.pinyin ? (
+                <div className="mt-2 text-sm sm:text-base font-light text-muted tracking-[0.3px] break-words">
+                  {card.pinyin}
+                </div>
+              ) : null}
+
+              {!revealed ? (
+                <div className="mt-6 text-[11px] font-bold uppercase tracking-[1.5px] text-bmw-blue">
+                  Chạm để xem nghĩa ›
+                </div>
+              ) : null}
+            </button>
 
             {/* Vietnamese & details — revealed on tap */}
             {revealed ? (
@@ -205,28 +217,15 @@ export function CardFirstHome() {
                   </div>
                 ) : null}
                 {card.exampleChinese ? (
-                  <div className="border-t border-hairline pt-3">
-                    <div className="text-[11px] font-bold uppercase tracking-[1.5px] text-muted mb-1.5">
-                      Ví dụ
-                    </div>
-                    <div className="zh text-base font-bold leading-snug">{card.exampleChinese}</div>
-                    {showPinyin && card.examplePinyin ? (
-                      <div className="text-xs font-light text-muted mt-1">{card.examplePinyin}</div>
-                    ) : null}
-                    {card.exampleVietnamese ? (
-                      <div className="text-sm font-light text-body mt-1.5">
-                        {card.exampleVietnamese}
-                      </div>
-                    ) : null}
-                  </div>
+                  <ExampleBreakdown
+                    zh={card.exampleChinese}
+                    vi={card.exampleVietnamese}
+                    showPinyin={showPinyin}
+                  />
                 ) : null}
               </div>
-            ) : (
-              <div className="mt-6 text-[11px] font-bold uppercase tracking-[1.5px] text-bmw-blue">
-                Chạm để xem nghĩa ›
-              </div>
-            )}
-          </button>
+            ) : null}
+          </div>
 
           {/* Action row — Nghe · Lưu · Câu tiếp */}
           <div className="px-3 sm:px-5 py-3 border-t border-hairline flex items-center gap-2 sm:gap-3">
