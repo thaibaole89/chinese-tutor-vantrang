@@ -60,8 +60,8 @@ export const week1Lessons: Lesson[] = [
     quiz: [
       { id: "w1d1-q1", type: "vi_to_zh", prompt: "Bạn tên là gì?", answer: "你叫什么名字？" },
       { id: "w1d1-q2", type: "choose_pinyin", prompt: "认识", answer: "rènshi", options: ["rènshi", "rénshí", "rěnshī", "rēnshì"] },
-      { id: "w1d1-q3", type: "complete_sentence", prompt: "我学中文，___ 去旅游。", answer: "为了", explanationVi: "为了 = để (mục đích)." },
-      { id: "w1d1-q4", type: "zh_to_vi", prompt: "很高兴认识你。", answer: "Rất vui được làm quen." },
+      { id: "w1d1-q3", type: "complete_sentence", prompt: "我学中文，___ 去旅游。", answer: "为了", explanationVi: "为了 = để (mục đích).", pinyin: "Wǒ xué Zhōngwén, ___ qù lǚyóu." },
+      { id: "w1d1-q4", type: "zh_to_vi", prompt: "很高兴认识你。", answer: "Rất vui được làm quen.", pinyin: "Hěn gāoxìng rènshi nǐ." },
     ],
   },
 
@@ -115,8 +115,8 @@ export const week1Lessons: Lesson[] = [
     quiz: [
       { id: "w1d2-q1", type: "vi_to_zh", prompt: "Cho hỏi, tới khách sạn đi thế nào?", answer: "请问，到酒店怎么走？" },
       { id: "w1d2-q2", type: "choose_pinyin", prompt: "地铁", answer: "dìtiě", options: ["dìtiě", "dìtié", "dítiè", "díte"] },
-      { id: "w1d2-q3", type: "complete_sentence", prompt: "坐地铁 ___ 线？", answer: "几号", explanationVi: "几号线 = tuyến số mấy." },
-      { id: "w1d2-q4", type: "zh_to_vi", prompt: "走路十分钟就到。", answer: "Đi bộ 10 phút là tới." },
+      { id: "w1d2-q3", type: "complete_sentence", prompt: "坐地铁 ___ 线？", answer: "几号", explanationVi: "几号线 = tuyến số mấy.", pinyin: "Zuò dìtiě ___ xiàn?" },
+      { id: "w1d2-q4", type: "zh_to_vi", prompt: "走路十分钟就到。", answer: "Đi bộ 10 phút là tới.", pinyin: "Zǒu lù shí fēnzhōng jiù dào." },
     ],
   },
 
@@ -171,8 +171,8 @@ export const week1Lessons: Lesson[] = [
     quiz: [
       { id: "w1d3-q1", type: "vi_to_zh", prompt: "Tôi muốn nhận phòng.", answer: "我想办理入住。" },
       { id: "w1d3-q2", type: "choose_pinyin", prompt: "退房", answer: "tuìfáng", options: ["tuìfáng", "tuīfǎng", "tuǐfàng", "tuīfáng"] },
-      { id: "w1d3-q3", type: "complete_sentence", prompt: "请问 Wi-Fi ___ 是多少？", answer: "密码", explanationVi: "密码 = mật khẩu." },
-      { id: "w1d3-q4", type: "zh_to_vi", prompt: "明天 12 点之前都可以退房。", answer: "Mai trước 12 giờ đều có thể trả phòng." },
+      { id: "w1d3-q3", type: "complete_sentence", prompt: "请问 Wi-Fi ___ 是多少？", answer: "密码", explanationVi: "密码 = mật khẩu.", pinyin: "Qǐngwèn Wi-Fi ___ shì duōshǎo?" },
+      { id: "w1d3-q4", type: "zh_to_vi", prompt: "明天 12 点之前都可以退房。", answer: "Mai trước 12 giờ đều có thể trả phòng.", pinyin: "Míngtiān 12 diǎn zhīqián dōu kěyǐ tuìfáng." },
     ],
   },
 
@@ -227,8 +227,8 @@ export const week1Lessons: Lesson[] = [
     quiz: [
       { id: "w1d4-q1", type: "vi_to_zh", prompt: "Tôi không ăn cay.", answer: "我不要辣。" },
       { id: "w1d4-q2", type: "choose_pinyin", prompt: "打包", answer: "dǎbāo", options: ["dǎbāo", "dábǎo", "dàbǎo", "dāpāo"] },
-      { id: "w1d4-q3", type: "complete_sentence", prompt: "请 ___ 一道不太辣的菜。", answer: "推荐", explanationVi: "推荐 = gợi ý / đề xuất." },
-      { id: "w1d4-q4", type: "zh_to_vi", prompt: "剩的打包，请买单。", answer: "Đồ thừa gói về, vui lòng tính tiền." },
+      { id: "w1d4-q3", type: "complete_sentence", prompt: "请 ___ 一道不太辣的菜。", answer: "推荐", explanationVi: "推荐 = gợi ý / đề xuất.", pinyin: "Qǐng ___ yī dào bù tài là de cài." },
+      { id: "w1d4-q4", type: "zh_to_vi", prompt: "剩的打包，请买单。", answer: "Đồ thừa gói về, vui lòng tính tiền.", pinyin: "Shèng de dǎbāo, qǐng mǎidān." },
     ],
   },
 
@@ -283,8 +283,8 @@ export const week1Lessons: Lesson[] = [
     quiz: [
       { id: "w1d5-q1", type: "vi_to_zh", prompt: "Cái này bao nhiêu tiền?", answer: "这个多少钱？" },
       { id: "w1d5-q2", type: "choose_pinyin", prompt: "便宜", answer: "piányi", options: ["piányi", "piányí", "biànyi", "piànyi"] },
-      { id: "w1d5-q3", type: "complete_sentence", prompt: "太贵了，___ 点行吗？", answer: "便宜", explanationVi: "便宜 = rẻ; 便宜点 = bớt chút." },
-      { id: "w1d5-q4", type: "zh_to_vi", prompt: "可以微信支付吗？", answer: "Trả WeChat Pay được không?" },
+      { id: "w1d5-q3", type: "complete_sentence", prompt: "太贵了，___ 点行吗？", answer: "便宜", explanationVi: "便宜 = rẻ; 便宜点 = bớt chút.", pinyin: "Tài guì le, ___ diǎn xíng ma?" },
+      { id: "w1d5-q4", type: "zh_to_vi", prompt: "可以微信支付吗？", answer: "Trả WeChat Pay được không?", pinyin: "Kěyǐ Wēixìn zhīfù ma?" },
     ],
   },
 
@@ -338,8 +338,8 @@ export const week1Lessons: Lesson[] = [
     quiz: [
       { id: "w1d6-q1", type: "vi_to_zh", prompt: "Phim này hay quá!", answer: "这剧太好看了！" },
       { id: "w1d6-q2", type: "choose_pinyin", prompt: "心疼", answer: "xīnténg", options: ["xīnténg", "xìntèng", "xīntēng", "xīntěng"] },
-      { id: "w1d6-q3", type: "complete_sentence", prompt: "我看完哭了，太 ___ 她了。", answer: "心疼", explanationVi: "心疼 = thương xót / đau lòng." },
-      { id: "w1d6-q4", type: "zh_to_vi", prompt: "你也在追这部剧吗？", answer: "Bạn cũng đang đuổi phim này à?" },
+      { id: "w1d6-q3", type: "complete_sentence", prompt: "我看完哭了，太 ___ 她了。", answer: "心疼", explanationVi: "心疼 = thương xót / đau lòng.", pinyin: "Wǒ kàn wán kū le, tài ___ tā le." },
+      { id: "w1d6-q4", type: "zh_to_vi", prompt: "你也在追这部剧吗？", answer: "Bạn cũng đang đuổi phim này à?", pinyin: "Nǐ yě zài zhuī zhè bù jù ma?" },
     ],
   },
 
@@ -393,8 +393,8 @@ export const week1Lessons: Lesson[] = [
     quiz: [
       { id: "w1d7-q1", type: "vi_to_zh", prompt: "Sáng nay tôi nhận phòng, rồi đi Cố Cung.", answer: "今天早上我办理入住，然后去故宫。" },
       { id: "w1d7-q2", type: "choose_pinyin", prompt: "开心", answer: "kāixīn", options: ["kāixīn", "kāixìn", "kǎixīn", "kǎixǐn"] },
-      { id: "w1d7-q3", type: "complete_sentence", prompt: "虽然累，___ 很值得。", answer: "但是", explanationVi: "虽然 ... 但是 ... = mặc dù ... nhưng ..." },
-      { id: "w1d7-q4", type: "zh_to_vi", prompt: "我想再去一次。", answer: "Tôi muốn đi lại 1 lần nữa." },
+      { id: "w1d7-q3", type: "complete_sentence", prompt: "虽然累，___ 很值得。", answer: "但是", explanationVi: "虽然 ... 但是 ... = mặc dù ... nhưng ...", pinyin: "Suīrán lèi, ___ hěn zhídé." },
+      { id: "w1d7-q4", type: "zh_to_vi", prompt: "我想再去一次。", answer: "Tôi muốn đi lại 1 lần nữa.", pinyin: "Wǒ xiǎng zài qù yī cì." },
     ],
   },
 ];

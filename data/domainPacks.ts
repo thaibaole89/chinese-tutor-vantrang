@@ -7,7 +7,7 @@ import type { DomainPack } from "@/lib/types";
  *
  * 1. pack-travel       — du lịch (sân bay, khách sạn, ăn uống, di chuyển)
  * 2. pack-drama-period — phim cổ trang (xưng hô cung đình, văn ngôn)
- * 3. pack-drama-modern — phim hiện đại (tình cảm, gia đình, công sở)
+ * 3. pack-drama-modern — phim hiện đại (tình cảm, gia đình, đời sống)
  * 4. pack-social       — Xiaohongshu / Douyin / Weibo (caption + slang)
  * 5. pack-news         — đọc báo / tin tức (tiêu đề + từ vựng formal)
  *
@@ -60,6 +60,12 @@ export const domainPacks: DomainPack[] = [
       { id: "tv-v23", hanzi: "帮我拍", pinyin: "bāng wǒ pāi", vietnameseMeaning: "chụp giúp tôi (ảnh)", synonyms: [], exampleZh: "可以帮我拍张照吗？", exampleVi: "Chụp giúp tôi một tấm được không?", tags: ["travel", "photo"], frequencyLevel: "high" },
       { id: "tv-v24", hanzi: "救命", pinyin: "jiùmìng", vietnameseMeaning: "cứu với! (⚠ CHỈ dùng trong tình huống khẩn cấp thực sự — không dùng đùa)", synonyms: [], exampleZh: "救命！", exampleVi: "Cứu với! (chỉ khi nguy hiểm thực sự)", tags: ["travel", "emergency", "emergency-only"], frequencyLevel: "low" },
       { id: "tv-v25", hanzi: "丢了", pinyin: "diū le", vietnameseMeaning: "mất rồi / lạc rồi", synonyms: [], exampleZh: "钱包丢了。", exampleVi: "Mất ví rồi.", tags: ["travel", "emergency"], frequencyLevel: "medium" },
+      // ----- Khẩn cấp & sức khoẻ — bổ sung quan trọng cho người du lịch -----
+      { id: "tv-v26", hanzi: "护照", pinyin: "hùzhào", vietnameseMeaning: "hộ chiếu", synonyms: [], exampleZh: "我的护照丢了。", exampleVi: "Hộ chiếu của tôi bị mất rồi.", tags: ["travel", "emergency"], frequencyLevel: "high" },
+      { id: "tv-v27", hanzi: "肚子疼", pinyin: "dùzi téng", vietnameseMeaning: "đau bụng", synonyms: [], exampleZh: "我肚子疼得厉害。", exampleVi: "Tôi đau bụng dữ dội.", tags: ["travel", "emergency", "health"], frequencyLevel: "high" },
+      { id: "tv-v28", hanzi: "药店", pinyin: "yàodiàn", vietnameseMeaning: "hiệu thuốc, nhà thuốc", synonyms: [], exampleZh: "附近有药店吗？", exampleVi: "Gần đây có hiệu thuốc không ạ?", tags: ["travel", "emergency", "health"], frequencyLevel: "high" },
+      { id: "tv-v29", hanzi: "医院", pinyin: "yīyuàn", vietnameseMeaning: "bệnh viện", synonyms: [], exampleZh: "请带我去医院。", exampleVi: "Làm ơn đưa tôi đến bệnh viện.", tags: ["travel", "emergency", "health"], frequencyLevel: "high" },
+      { id: "tv-v30", hanzi: "迷路", pinyin: "mílù", vietnameseMeaning: "lạc đường", synonyms: [], exampleZh: "我迷路了，能帮帮我吗？", exampleVi: "Tôi bị lạc đường, có thể giúp tôi không?", tags: ["travel", "emergency"], frequencyLevel: "medium" },
     ],
     sentencePatterns: [
       { id: "tv-s1", zh: "请问 ... 怎么走？", pinyin: "Qǐngwèn ... zěnme zǒu?", vi: "Cho hỏi ... đi thế nào?", usageNoteVi: "Mở đầu 请问 = lịch sự với người lạ.", register: "wechat" },
@@ -74,6 +80,10 @@ export const domainPacks: DomainPack[] = [
       { id: "tv-s10", zh: "请帮我叫一辆出租车。", pinyin: "Qǐng bāng wǒ jiào yī liàng chūzūchē.", vi: "Phiền giúp tôi gọi một xe taxi.", register: "wechat" },
       { id: "tv-s11", zh: "我没听懂，可以再说一遍吗？", pinyin: "Wǒ méi tīngdǒng, kěyǐ zài shuō yī biàn ma?", vi: "Tôi chưa hiểu, có thể nói lại không?", register: "wechat" },
       { id: "tv-s12", zh: "请问，附近有 ... 吗？", pinyin: "Qǐngwèn, fùjìn yǒu ... ma?", vi: "Cho hỏi, gần đây có ... không?", register: "wechat" },
+      // ----- Khẩn cấp -----
+      { id: "tv-s13", zh: "我的 ... 丢了。", pinyin: "Wǒ de ... diū le.", vi: "... của tôi bị mất rồi.", usageNoteVi: "Khẩn cấp — báo lễ tân, công an hoặc đại sứ quán.", register: "wechat" },
+      { id: "tv-s14", zh: "我 ... 疼得厉害，请帮我叫救护车。", pinyin: "Wǒ ... téng de lìhai, qǐng bāng wǒ jiào jiùhùchē.", vi: "Tôi đau ... dữ dội, làm ơn gọi xe cấp cứu giúp.", usageNoteVi: "Khi cần cấp cứu (救护车 = xe cứu thương).", register: "wechat" },
+      { id: "tv-s15", zh: "我迷路了，能帮帮我吗？", pinyin: "Wǒ mílù le, néng bāngbang wǒ ma?", vi: "Tôi bị lạc đường rồi, có thể giúp tôi không?", register: "wechat" },
     ],
     roleplayScenarios: [
       {
@@ -124,6 +134,16 @@ export const domainPacks: DomainPack[] = [
         aiRole: "Chủ sạp chợ đêm",
         userRole: "Vân Trang — khách du lịch",
         targetPhrases: ["多少钱", "便宜点", "试一下", "好看", "微信支付"],
+        difficulty: "medium",
+      },
+      {
+        id: "tv-rp6",
+        titleVi: "Khẩn cấp — đau bụng, tìm nhà thuốc",
+        titleZh: "突发情况：肚子疼，找药店",
+        contextVi: "Bạn đang đi bộ trên phố, đột nhiên đau bụng nặng. Hỏi local gần nhất nhà thuốc / bệnh viện ở đâu, mô tả triệu chứng ngắn gọn.",
+        aiRole: "Người đi đường thân thiện, sẵn lòng giúp",
+        userRole: "Vân Trang — đang đau",
+        targetPhrases: ["不好意思", "肚子疼得厉害", "附近有药店吗", "请帮我", "谢谢"],
         difficulty: "medium",
       },
     ],
@@ -224,21 +244,21 @@ export const domainPacks: DomainPack[] = [
   },
 
   // ===========================================================
-  // 3. MODERN DRAMA — phim hiện đại, tình cảm, công sở
+  // 3. MODERN DRAMA — phim hiện đại, tình cảm, gia đình
   // ===========================================================
   {
     id: "pack-drama-modern",
     title: "Phim hiện đại (现代剧)",
     titleZh: "现代剧词汇",
     description:
-      "Từ vựng và mẫu câu trong phim hiện đại Trung: tình cảm (前任/暗恋/复合), công sở (前辈/加班/老板), gia đình (婆婆/亲戚), cảm xúc (心疼/委屈/算了). Hợp khi xem 30 Chưa Phải Là Hết, Hoan Lạc Tụng, Trong Cuộc Tình…",
+      "Từ vựng và mẫu câu trong phim hiện đại Trung: tình cảm (前任/暗恋/复合), gia đình (婆婆/亲戚), bạn bè & đời sống (前辈/老板/约会), cảm xúc (心疼/委屈/算了). Hợp khi xem 30 Chưa Phải Là Hết, Hoan Lạc Tụng, Trong Cuộc Tình…",
     visual: {
       type: "learning_scene",
       sceneType: "wechat_meeting",
       emoji: "💕",
       gradient: "drama-modern",
       altVi: "Phone + heart bubbles + café — chủ đề phim hiện đại",
-      captionVi: "Từ vựng tình cảm + công sở dùng được trong đời thực",
+      captionVi: "Từ vựng tình cảm + đời sống dùng được trong đời thực",
     },
     vocabulary: [
       { id: "dm-v1", hanzi: "前任", pinyin: "qiánrèn", vietnameseMeaning: "người yêu cũ", synonyms: [], exampleZh: "她是我前任。", exampleVi: "Cô ấy là người yêu cũ của tôi.", tags: ["drama", "romance"], frequencyLevel: "high" },
@@ -261,6 +281,10 @@ export const domainPacks: DomainPack[] = [
       { id: "dm-v18", hanzi: "感动", pinyin: "gǎndòng", vietnameseMeaning: "cảm động", synonyms: [], exampleZh: "好感动。", exampleVi: "Cảm động quá.", tags: ["drama", "emotion"], frequencyLevel: "high" },
       { id: "dm-v19", hanzi: "没办法", pinyin: "méi bànfǎ", vietnameseMeaning: "không có cách nào", synonyms: [], exampleZh: "没办法，只能这样。", exampleVi: "Không có cách nào, chỉ có vậy.", tags: ["drama", "casual"], frequencyLevel: "high" },
       { id: "dm-v20", hanzi: "在乎", pinyin: "zàihu", vietnameseMeaning: "quan tâm, để bụng", synonyms: [], exampleZh: "我很在乎你。", exampleVi: "Anh rất quan tâm em.", tags: ["drama", "emotion"], frequencyLevel: "high" },
+      // ----- Cảm xúc xem phim (fangirl) — bổ sung -----
+      { id: "dm-v21", hanzi: "太虐了", pinyin: "tài nüè le", vietnameseMeaning: "tiếng lóng — ngược quá (đoạn phim làm khán giả đau lòng)", synonyms: [], exampleZh: "这集太虐了，我看哭了。", exampleVi: "Tập này ngược quá, tôi xem khóc luôn.", tags: ["drama", "emotion", "slang"], frequencyLevel: "high" },
+      { id: "dm-v22", hanzi: "太帅了", pinyin: "tài shuài le", vietnameseMeaning: "đẹp trai quá", synonyms: [], exampleZh: "男主角太帅了。", exampleVi: "Nam chính đẹp trai quá.", tags: ["drama", "emotion"], frequencyLevel: "high" },
+      { id: "dm-v23", hanzi: "状态不错", pinyin: "zhuàngtài bú cuò", vietnameseMeaning: "trạng thái tốt, tâm trạng / phong độ ổn", synonyms: [], exampleZh: "今天状态不错。", exampleVi: "Hôm nay trạng thái khá tốt.", tags: ["drama", "emotion"], frequencyLevel: "high" },
     ],
     sentencePatterns: [
       { id: "dm-s1", zh: "我喜欢你。", pinyin: "Wǒ xǐhuān nǐ.", vi: "Anh/em thích em/anh.", usageNoteVi: "Cấp 1 — vừa và đủ cho tỏ tình.", register: "casual" },
@@ -273,6 +297,9 @@ export const domainPacks: DomainPack[] = [
       { id: "dm-s8", zh: "其实我一直在乎你。", pinyin: "Qíshí wǒ yīzhí zàihu nǐ.", vi: "Thật ra anh vẫn luôn quan tâm em.", usageNoteVi: "Câu kinh điển trong drama.", register: "casual" },
       { id: "dm-s9", zh: "算了，不想说了。", pinyin: "Suàn le, bù xiǎng shuō le.", vi: "Thôi, không muốn nói nữa.", register: "casual" },
       { id: "dm-s10", zh: "没办法，只能这样。", pinyin: "Méi bànfǎ, zhǐ néng zhèyàng.", vi: "Không có cách nào, chỉ có vậy.", register: "casual" },
+      // ----- Fangirl xem phim -----
+      { id: "dm-s11", zh: "这集太虐了，我看哭了。", pinyin: "Zhè jí tài nüè le, wǒ kàn kū le.", vi: "Tập này ngược quá, tôi xem khóc luôn.", usageNoteVi: "Cảm xúc khi xem cảnh chia ly trong phim.", register: "casual" },
+      { id: "dm-s12", zh: "男主角太帅了，我要追这部剧。", pinyin: "Nán zhǔjué tài shuài le, wǒ yào zhuī zhè bù jù.", vi: "Nam chính đẹp trai quá, mình phải đuổi phim này.", register: "casual" },
     ],
     roleplayScenarios: [
       {

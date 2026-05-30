@@ -49,6 +49,7 @@ export function MiniQuiz({ lessonId, questions, onComplete }: Props) {
   const [idx, setIdx] = useState(0);
   const [answer, setAnswer] = useState("");
   const [revealed, setRevealed] = useState(false);
+  const [hintShown, setHintShown] = useState(false);
   const [answers, setAnswers] = useState<
     Array<{ questionId: string; userAnswer: string; correct: boolean }>
   >([]);
@@ -56,6 +57,13 @@ export function MiniQuiz({ lessonId, questions, onComplete }: Props) {
 
   const q = questions[idx];
   const score = useMemo(() => answers.filter((a) => a.correct).length, [answers]);
+
+  // Recognition questions where pinyin is useful as a hint (not the answer).
+  // choose_pinyin → answer IS pinyin, never hint. vi_to_zh → would defeat
+  // purpose. zh_to_vi + complete_sentence → safe to hint.
+  const canHintPinyin =
+    !!q?.pinyin &&
+    (q.type === "zh_to_vi" || q.type === "complete_sentence");
 
   if (!q && !done) return null;
 
@@ -82,6 +90,7 @@ export function MiniQuiz({ lessonId, questions, onComplete }: Props) {
     if (!revealed) return;
     setAnswer("");
     setRevealed(false);
+    setHintShown(false);
     if (idx + 1 >= questions.length) {
       const result: QuizResult = {
         id: uid("quiz"),
@@ -107,16 +116,34 @@ export function MiniQuiz({ lessonId, questions, onComplete }: Props) {
           {idx + 1} / {questions.length}
         </span>
       </div>
-      <div className="text-xl font-bold leading-snug">
-        <span
-          className={
-            q.type === "zh_to_vi" || q.type === "choose_pinyin" || q.type === "complete_sentence"
-              ? "zh"
-              : ""
-          }
-        >
-          {q.prompt}
-        </span>
+      <div>
+        <div className="text-xl font-bold leading-snug">
+          <span
+            className={
+              q.type === "zh_to_vi" || q.type === "choose_pinyin" || q.type === "complete_sentence"
+                ? "zh"
+                : ""
+            }
+          >
+            {q.prompt}
+          </span>
+        </div>
+        {/* Tap-to-reveal pinyin hint for recognition questions. */}
+        {canHintPinyin ? (
+          hintShown || revealed ? (
+            <div className="mt-2 text-sm font-light text-muted tracking-[0.3px]">
+              {q.pinyin}
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setHintShown(true)}
+              className="mt-2 text-[12px] font-bold tracking-[1px] uppercase text-bmw-blue hover:underline"
+            >
+              Xem pinyin ›
+            </button>
+          )
+        ) : null}
       </div>
 
       {q.type === "choose_pinyin" && q.options ? (

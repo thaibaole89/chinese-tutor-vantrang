@@ -45,9 +45,9 @@ export const realFeedItems: RealFeedItem[] = [
       vi: "Gợi ý 1 món không cay, thêm 1 phần cơm + bát canh.",
     },
     businessSafeVersion: {
-      zh: "(餐厅点菜属生活场景，不需商务表达。)",
-      pinyin: "(Cāntīng diǎncài shǔ shēnghuó chǎngjǐng, bù xū shāngwù biǎodá.)",
-      vi: "(Tình huống đời thường — không cần dạng business.)",
+      zh: "服务员，麻烦帮我们推荐一道不太辣的菜，再来一份米饭和一碗汤，谢谢。",
+      pinyin: "Fúwùyuán, máfan bāng wǒmen tuījiàn yī dào bù tài là de cài, zài lái yī fèn mǐfàn hé yī wǎn tāng, xièxie.",
+      vi: "Bạn ơi, phiền gợi ý 1 món không cay lắm, thêm 1 phần cơm và 1 bát canh nhé, cảm ơn.",
     },
     usageNotesVi:
       "Mở đầu 麻烦 + 推荐 là combo lịch sự với người lạ. Phù hợp mọi quán có phục vụ.",
@@ -110,9 +110,9 @@ export const realFeedItems: RealFeedItem[] = [
       vi: "Chào, mã 8821, Wi-Fi pass? Sáng mấy giờ?",
     },
     businessSafeVersion: {
-      zh: "(酒店入住属生活场景，无商务版本。)",
-      pinyin: "(Jiǔdiàn rùzhù shǔ shēnghuó chǎngjǐng.)",
-      vi: "(Tình huống đời thường.)",
+      zh: "您好，我有预订，订单号是 8821。麻烦帮我办理入住，再请问 Wi-Fi 密码和早餐时间。",
+      pinyin: "Nín hǎo, wǒ yǒu yùdìng, dìngdān hào shì 8821. Máfan bāng wǒ bànlǐ rùzhù, zài qǐngwèn Wi-Fi mìmǎ hé zǎocān shíjiān.",
+      vi: "Chào anh/chị, tôi có đặt phòng, mã đặt là 8821. Phiền làm thủ tục nhận phòng giúp tôi, và cho hỏi mật khẩu Wi-Fi cùng giờ ăn sáng.",
     },
     usageNotesVi:
       "您 = lịch sự với lễ tân. Khách quen có thể dùng 你. Mã đặt nói rời từng số.",
@@ -175,9 +175,9 @@ export const realFeedItems: RealFeedItem[] = [
       vi: "Cố Cung đi sao? Metro số mấy? Bao lâu?",
     },
     businessSafeVersion: {
-      zh: "(问路属生活场景。)",
-      pinyin: "(Wèn lù shǔ shēnghuó chǎngjǐng.)",
-      vi: "(Tình huống đời thường.)",
+      zh: "您好，请问到故宫怎么走？坐地铁是几号线？大概需要多长时间？谢谢。",
+      pinyin: "Nín hǎo, qǐngwèn dào Gùgōng zěnme zǒu? Zuò dìtiě shì jǐ hào xiàn? Dàgài xūyào duō cháng shíjiān? Xièxie.",
+      vi: "Chào anh/chị, cho hỏi tới Cố Cung đi thế nào ạ? Đi metro tuyến số mấy? Mất khoảng bao lâu? Cảm ơn.",
     },
     usageNotesVi: "请问 mở đầu rất quan trọng — không có thì nghe cộc.",
     whenToUseVi: "Mọi tình huống hỏi đường người lạ — bus, metro, tour.",
@@ -240,9 +240,9 @@ export const realFeedItems: RealFeedItem[] = [
       vi: "Hôm nay sắc mặt em đẹp.\nĐâu có, chỉ là tô tí má hồng.\nTôi nhìn như có chuyện vui.",
     },
     businessSafeVersion: {
-      zh: "(古装文言不用于商务，可用现代口语版。)",
-      pinyin: "(Gǔzhuāng wényán bù yòng yú shāngwù.)",
-      vi: "(Văn ngôn cổ không dùng business — xem version spoken hiện đại.)",
+      zh: "（古装文言只用于看剧理解，日常对话请用现代口语，例如：你今天气色不错。）",
+      pinyin: "(Gǔzhuāng wényán zhǐ yòng yú kàn jù lǐjiě, rìcháng duìhuà qǐng yòng xiàndài kǒuyǔ, lìrú: nǐ jīntiān qìsè bù cuò.)",
+      vi: "(Văn ngôn cổ chỉ dùng để hiểu phim — đời thường nên dùng câu hiện đại, ví dụ: hôm nay sắc mặt bạn đẹp đấy.)",
     },
     usageNotesVi:
       "⚠️ Đoạn gốc do app viết theo phong cách cung đình — không phải lời thoại bản quyền. Học cách xưng hô 妹妹 / 姐姐 / 本宫 + xã giao trong cung.",
@@ -315,9 +315,9 @@ export const realFeedItems: RealFeedItem[] = [
       vi: "Anh vẫn luôn quan tâm em. 3 năm rồi, ngày nào cũng nhớ em. Đừng đi, cho anh thêm 1 cơ hội nhé?",
     },
     businessSafeVersion: {
-      zh: "(浪漫桥段不用于商务。)",
-      pinyin: "(Làngmàn qiáoduàn bù yòng yú shāngwù.)",
-      vi: "(Cảnh lãng mạn — không dùng business.)",
+      zh: "（浪漫桥段属于影视场景，日常表达更含蓄，比如：我一直很在乎你，请给我一个机会，好吗？）",
+      pinyin: "(Làngmàn qiáoduàn shǔyú yǐngshì chǎngjǐng, rìcháng biǎodá gèng hánxù, bǐrú: wǒ yīzhí hěn zàihu nǐ, qǐng gěi wǒ yī gè jīhuì, hǎo ma?)",
+      vi: "(Đoạn lãng mạn này là cảnh phim — đời thường nên nói mềm hơn, ví dụ: anh vẫn luôn rất quan tâm em, cho anh một cơ hội, được không?)",
     },
     usageNotesVi:
       "Câu 其实我一直在乎你 là 'opening line' của 80% cảnh tỏ tình trong drama hiện đại. Học để hiểu — không cần dùng (trừ khi bạn muốn 'phim' với người yêu).",
@@ -381,9 +381,9 @@ export const realFeedItems: RealFeedItem[] = [
       vi: "Cẩm nang Thành Đô 3 ngày 2 đêm! Khu nuôi gấu trúc tuyệt vời, mọi người có gợi ý quán lẩu nào không?",
     },
     businessSafeVersion: {
-      zh: "(社交媒体文案不用于商务沟通。)",
-      pinyin: "(Shèjiāo méitǐ wén'àn bù yòng yú shāngwù gōutōng.)",
-      vi: "(Caption MXH — không dùng business.)",
+      zh: "（社交媒体文案口语化，发给朋友看可以；如果要写正式分享，可以改成：成都三天两夜的行程攻略，推荐熊猫基地和当地火锅。）",
+      pinyin: "(Shèjiāo méitǐ wén'àn kǒuyǔ huà, fā gěi péngyǒu kàn kěyǐ; rúguǒ yào xiě zhèngshì fēnxiǎng, kěyǐ gǎi chéng: Chéngdū sān tiān liǎng yè de xíngchéng gōnglüè, tuījiàn xióngmāo jīdì hé dāngdì huǒguō.)",
+      vi: "(Caption mạng xã hội rất casual; nếu muốn viết kiểu lịch sự hơn, có thể đổi thành: cẩm nang lịch trình Thành Đô 3 ngày 2 đêm, giới thiệu khu nuôi gấu trúc và lẩu địa phương.)",
     },
     usageNotesVi:
       "Cấu trúc Xiaohongshu chuẩn: 攻略来啦 → khen 1 thứ → 求推荐 → 种草 → hashtag.",
@@ -526,9 +526,9 @@ export const realFeedItems: RealFeedItem[] = [
       vi: "Theo Bộ Ngoại giao, Trung Quốc áp dụng miễn visa đơn phương cho công dân Việt Nam, giới hạn lưu trú 15 ngày.",
     },
     usageNotesVi:
-      "据 ... 消息 = mở đầu kinh điển báo TQ. 自即日起 = formal. Spoken version chỉ giữ phần thông tin chính.",
-    whenToUseVi: "Báo cáo, post Facebook share tin, brief đồng nghiệp.",
-    whenNotToUseVi: "Chat thân — dùng spoken version đơn giản hơn.",
+      "据 ... 消息 = mở đầu kinh điển trên báo TQ. 自即日起 = lịch sự / chuẩn báo chí. Phiên bản nói chỉ giữ thông tin chính.",
+    whenToUseVi: "Đọc / chia sẻ tin tức trên Facebook · WeChat Moments · kể bạn bè.",
+    whenNotToUseVi: "Chat thân mật — dùng phiên bản nói đơn giản hơn.",
     keyVocabulary: [
       { id: "rf8-v1", hanzi: "据", pinyin: "jù", vietnameseMeaning: "theo (nguồn tin)", synonyms: [], exampleZh: "据报道", exampleVi: "Theo đưa tin", tags: ["news"], frequencyLevel: "high" },
       { id: "rf8-v2", hanzi: "外交部", pinyin: "wàijiāo bù", vietnameseMeaning: "Bộ Ngoại giao", synonyms: [], exampleZh: "外交部消息", exampleVi: "Tin Bộ Ngoại giao", tags: ["news"], frequencyLevel: "high" },
@@ -660,9 +660,9 @@ export const realFeedItems: RealFeedItem[] = [
       vi: "Anh ơi, khăn bao nhiêu? Bớt chút đi, 180 nhé? WeChat quét mã?",
     },
     businessSafeVersion: {
-      zh: "(夜市砍价属生活场景。)",
-      pinyin: "(Yèshì kǎnjià shǔ shēnghuó chǎngjǐng.)",
-      vi: "(Mặc cả chợ đêm — tình huống đời thường.)",
+      zh: "您好，请问这条丝巾多少钱？可以稍微便宜一点吗？我想买两条。",
+      pinyin: "Nín hǎo, qǐngwèn zhè tiáo sījīn duōshǎo qián? Kěyǐ shāowēi piányi yīdiǎn ma? Wǒ xiǎng mǎi liǎng tiáo.",
+      vi: "Chào anh/chị, cho hỏi khăn lụa này bao nhiêu? Bớt chút được không ạ? Tôi định mua 2 chiếc.",
     },
     usageNotesVi:
       "Mặc cả OK ở chợ đêm, sạp lề đường. KHÔNG mặc cả ở mall / cửa hàng có giá niêm yết.",

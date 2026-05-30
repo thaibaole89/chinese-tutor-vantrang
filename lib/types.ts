@@ -223,6 +223,14 @@ export interface QuizQuestion {
   answer: string;
   options?: string[];
   explanationVi?: string;
+  /**
+   * Optional pinyin for the prompt — used as a tap-to-reveal hint for
+   * recognition-type questions (zh_to_vi, complete_sentence). Hidden by
+   * default so the question still tests reading; revealed only when the
+   * user taps "Xem pinyin". Omit for choose_pinyin questions (the answer
+   * IS pinyin) and vi_to_zh questions (would defeat the purpose).
+   */
+  pinyin?: string;
 }
 
 export interface Lesson {
