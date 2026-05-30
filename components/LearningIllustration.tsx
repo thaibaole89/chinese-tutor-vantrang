@@ -301,9 +301,9 @@ function SceneDutyFreeCustomer() {
           ))}
         </div>
       </div>
-      {/* clock badge centre-top */}
+      {/* friendly learning label centre-top */}
       <div className="absolute top-[6%] left-1/2 -translate-x-1/2 px-2 py-1 bg-bmw-blue text-white text-[10px] font-bold tracking-wider rounded-sm" aria-hidden="true">
-        15:00 – 17:00
+        Mua sắm
       </div>
       {/* customer avatar dots */}
       <div className="absolute bottom-[8%] inset-x-0 flex justify-center gap-2" aria-hidden="true">
@@ -332,7 +332,7 @@ function SceneHotelPricing() {
       {/* occupancy bar chart centre-right */}
       <div className="absolute top-[18%] right-[8%] w-[44%] h-[55%]" aria-hidden="true">
         <div className="absolute -top-3 left-0 text-[10px] font-bold tracking-wider text-emerald-700">
-          OCCUPANCY 92%
+          Dùng ở khách sạn
         </div>
         <div className="absolute inset-x-0 bottom-0 h-px bg-ink-300" />
         <div className="absolute inset-x-0 bottom-0 flex items-end gap-1.5 h-full">
@@ -408,7 +408,7 @@ function SceneAirportTraffic() {
         <rect x="6" y="6" width="20" height="7" rx="1" fill="#10b981" />
       </svg>
       <div className="absolute top-[10%] left-[6%] text-[10px] font-bold text-white tracking-wider" aria-hidden="true">
-        +20% YoY
+        Đi du lịch
       </div>
     </>
   );
@@ -424,7 +424,7 @@ function SceneSlangRegister() {
         {/* left — casual */}
         <div className="relative bg-gradient-to-br from-rose-100 via-pink-50 to-white">
           <div className="absolute top-3 left-3 text-[10px] font-bold uppercase tracking-wider text-rose-700">
-            CASUAL
+            Thân mật
           </div>
           {/* phone with chat bubble */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[55%] aspect-square">

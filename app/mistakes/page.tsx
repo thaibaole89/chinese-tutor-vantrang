@@ -32,8 +32,8 @@ export default function MistakesPage() {
     <section className="px-6 py-section">
       <header className="flex flex-wrap items-end justify-between gap-4 mb-8">
         <div>
-          <div className="label-uppercase text-muted">Mistake log</div>
-          <h1 className="text-4xl font-bold mt-2">Lỗi đang ôn</h1>
+          <div className="label-uppercase text-muted">Sổ lỗi cần ôn</div>
+          <h1 className="text-4xl font-bold mt-2">Lỗi cần ôn</h1>
           <p className="text-sm font-light text-muted mt-2">
             {mistakes.length} lỗi đã lưu • {mistakes.filter((m) => !m.mastered).length} đang ôn
           </p>
@@ -66,7 +66,7 @@ export default function MistakesPage() {
           <p className="text-sm font-light text-muted">
             Vào{" "}
             <Link href="/roleplay" className="btn-text-link">
-              ROLE-PLAY
+              HỘI THOẠI
             </Link>{" "}
             để luyện và lưu lỗi đầu tiên.
           </p>

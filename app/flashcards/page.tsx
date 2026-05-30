@@ -88,7 +88,7 @@ export default function FlashcardsPage() {
   return (
     <section className="px-6 py-section">
       <header className="mb-8">
-        <div className="label-uppercase text-muted">Flashcards</div>
+        <div className="label-uppercase text-muted">Thẻ từ</div>
         <h1 className="text-4xl font-bold mt-2">Ôn từ vựng</h1>
         <p className="text-sm font-light text-muted mt-2">
           Tổng {cards.length} thẻ • Thuộc {counts.mastered} • Đang học {counts.learning} • Mới{" "}
@@ -208,26 +208,34 @@ function EmptyStateCTA({
   return (
     <div className="border border-hairline bg-canvas p-8 sm:p-10 space-y-4">
       <div className="label-uppercase text-bmw-blue">Bắt đầu</div>
-      <h2 className="text-2xl font-bold leading-snug">Bạn chưa có thẻ nào trong Flashcards.</h2>
+      <h2 className="text-2xl font-bold leading-snug">Bạn chưa có thẻ nào.</h2>
       <p className="text-sm font-light text-body max-w-prose">
-        Nạp một bộ thẻ mẫu để bắt đầu luyện. Bạn có thể thêm vocab từ Real Feed, các Chủ đề
-        (du lịch, ăn uống, mua sắm, phim cổ trang & hiện đại, mạng xã hội) bất kỳ lúc nào.
+        Lưu câu từ Thẻ học, Real Feed hoặc Chủ đề để ôn lại.
       </p>
       <div className="pt-3 flex flex-wrap gap-3">
-        <button type="button" onClick={onSeedWeek1} className="btn-primary">
-          NẠP FLASHCARDS MẪU TUẦN 1
+        <Link href="/" className="btn-primary">
+          VỀ THẺ HỌC
+        </Link>
+        <Link href="/domain-packs" className="btn-secondary">
+          MỞ CHỦ ĐỀ
+        </Link>
+        <Link href="/real-feed" className="btn-secondary">
+          MỞ REAL FEED
+        </Link>
+      </div>
+      {/* Quick seed options kept below the primary CTAs for convenience. */}
+      <div className="pt-4 border-t border-hairline flex flex-wrap gap-3">
+        <button type="button" onClick={onSeedWeek1} className="btn-text-link">
+          NẠP THẺ MẪU TUẦN 1
         </button>
-        <button type="button" onClick={onSeedTravel} className="btn-secondary">
+        <button type="button" onClick={onSeedTravel} className="btn-text-link">
           NẠP TỪ DU LỊCH ✈️
         </button>
         {onSeedDramaModern ? (
-          <button type="button" onClick={onSeedDramaModern} className="btn-secondary">
-            NẠP TỪ PHIM HIỆN ĐẠI 💕
+          <button type="button" onClick={onSeedDramaModern} className="btn-text-link">
+            NẠP TỪ PHIM 💕
           </button>
         ) : null}
-        <Link href="/real-feed" className="btn-text-link">
-          MỞ KHÁM PHÁ
-        </Link>
       </div>
     </div>
   );

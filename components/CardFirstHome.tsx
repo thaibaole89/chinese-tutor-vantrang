@@ -58,7 +58,9 @@ export function CardFirstHome() {
   const [revealed, setRevealed] = useState(false);
   const [saved, setSaved] = useState<Set<string>>(new Set());
   const [savedFeedback, setSavedFeedback] = useState<string | null>(null);
-  const { showPinyin, toggle: togglePinyin } = usePinyinPreference();
+  // Pinyin preference is read-only here — the single global toggle lives in
+  // the NavBar so there's exactly one visible toggle app-wide.
+  const { showPinyin } = usePinyinPreference();
 
   // Hydrate saved-card set on mount
   useEffect(() => {
@@ -113,19 +115,11 @@ export function CardFirstHome() {
 
   return (
     <section className="px-4 sm:px-6 pt-4 pb-section">
-      {/* ----------------- TOP BAR: pinyin toggle + counter ----------------- */}
+      {/* ----------------- TOP BAR: card counter (pinyin toggle lives in NavBar) ----------------- */}
       <div className="flex items-center justify-between mb-3">
         <div className="text-[11px] font-bold uppercase tracking-[1.5px] text-muted">
           {filtered.length > 0 ? `${idx + 1} / ${filtered.length}` : "—"}
         </div>
-        <button
-          type="button"
-          onClick={togglePinyin}
-          className="text-[11px] font-bold uppercase tracking-[1.5px] text-muted hover:text-ink-900 border border-hairline px-2 py-1 transition"
-          aria-pressed={showPinyin}
-        >
-          {showPinyin ? "Ẩn pinyin" : "Hiện pinyin"}
-        </button>
       </div>
 
       {/* ----------------- FILTER PILLS ----------------- */}

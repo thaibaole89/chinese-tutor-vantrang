@@ -6,13 +6,46 @@ import { useSearchParams } from "next/navigation";
 import { RoleplayChat } from "@/components/RoleplayChat";
 import { findScenario, getAllRoleplayScenarios } from "@/data/roleplayScenarios";
 
+const STARTER_SCENARIOS = [
+  { emoji: "🏨", label: "Nhận phòng khách sạn" },
+  { emoji: "🍜", label: "Gọi món nhà hàng" },
+  { emoji: "🧭", label: "Hỏi đường" },
+  { emoji: "🛍️", label: "Mua sắm" },
+  { emoji: "🆘", label: "Khẩn cấp" },
+];
+
+/** Static, instantly-rendered fallback shown while the interactive
+ *  scenario picker hydrates. No spinner — Vân Trang sees the title,
+ *  a short intro, and the scenario cards right away. */
+function RoleplayFallback() {
+  return (
+    <section className="px-6 py-section">
+      <header className="mb-8">
+        <div className="label-uppercase text-muted">Hội thoại</div>
+        <h1 className="text-4xl font-bold mt-2">Luyện hội thoại</h1>
+        <p className="text-sm font-light text-muted mt-2 max-w-prose">
+          Chọn một tình huống đời thường, rồi tập nói/nhắn tin bằng tiếng Trung. AI sẽ đóng vai
+          và sửa câu cho bạn.
+        </p>
+      </header>
+      <ul className="grid grid-cols-2 sm:grid-cols-3 gap-px bg-hairline border border-hairline">
+        {STARTER_SCENARIOS.map((s) => (
+          <li key={s.label} className="bg-canvas p-5 flex items-center gap-3">
+            <span className="text-xl leading-none" aria-hidden="true">
+              {s.emoji}
+            </span>
+            <span className="text-[13px] font-bold tracking-[0.3px]">{s.label}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-4 text-xs font-light text-muted">Đang chuẩn bị tình huống…</p>
+    </section>
+  );
+}
+
 export default function RoleplayPage() {
   return (
-    <Suspense
-      fallback={
-        <section className="px-6 py-section text-sm font-light text-muted">Đang tải...</section>
-      }
-    >
+    <Suspense fallback={<RoleplayFallback />}>
       <RoleplayInner />
     </Suspense>
   );
@@ -29,9 +62,9 @@ function RoleplayInner() {
     return (
       <section className="px-6 py-section text-center">
         <p className="text-base font-light text-muted">
-          Chưa có scenario nào.{" "}
+          Chưa có tình huống nào.{" "}
           <Link href="/" className="btn-text-link">
-            VỀ DASHBOARD
+            VỀ TRANG CHỦ
           </Link>
         </p>
       </section>
@@ -41,8 +74,8 @@ function RoleplayInner() {
   return (
     <section className="px-6 py-section">
       <header className="mb-8">
-        <div className="label-uppercase text-muted">Role-play</div>
-        <h1 className="text-4xl font-bold mt-2">Luyện nói qua tình huống</h1>
+        <div className="label-uppercase text-muted">Hội thoại</div>
+        <h1 className="text-4xl font-bold mt-2">Luyện hội thoại</h1>
       </header>
 
       <div className="border border-hairline bg-canvas p-4 mb-8">

@@ -130,13 +130,13 @@ export function RealFeedLesson({ item }: Props) {
           <RegisterCard
             tone="spoken"
             label="Văn nói thân mật"
-            badge="Casual"
+            badge="Thân mật"
             triplet={item.spokenVersion}
           />
           <RegisterCard
             tone="business"
             label="Văn lịch sự"
-            badge="Polite"
+            badge="Lịch sự"
             triplet={item.businessSafeVersion}
           />
         </div>
@@ -151,7 +151,7 @@ export function RealFeedLesson({ item }: Props) {
           <div className="border border-hairline bg-canvas overflow-hidden">
             <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-hairline">
               <div className="p-5 bg-rose-50/40">
-                <div className="label-uppercase text-rose-700 mb-2">Casual / slang</div>
+                <div className="label-uppercase text-rose-700 mb-2">Thân mật / tiếng lóng</div>
                 <div className="zh text-lg font-bold leading-snug">{item.originalZh.split("\n")[0]}</div>
               </div>
               <div className="p-5 bg-sky-50/40">
