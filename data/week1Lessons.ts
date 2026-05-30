@@ -191,7 +191,7 @@ export const week1Lessons: Lesson[] = [
       { id: "w1d4-v1", hanzi: "服务员", pinyin: "fúwùyuán", vietnameseMeaning: "nhân viên phục vụ", synonyms: [], exampleZh: "服务员，买单！", exampleVi: "Bạn ơi, tính tiền!", tags: ["food"], frequencyLevel: "high" },
       { id: "w1d4-v2", hanzi: "菜单", pinyin: "càidān", vietnameseMeaning: "thực đơn", synonyms: [], exampleZh: "请给我菜单。", exampleVi: "Cho tôi thực đơn.", tags: ["food"], frequencyLevel: "high" },
       { id: "w1d4-v3", hanzi: "点菜", pinyin: "diǎn cài", vietnameseMeaning: "gọi món", synonyms: [], exampleZh: "可以点菜了。", exampleVi: "Gọi món được rồi.", tags: ["food"], frequencyLevel: "high" },
-      { id: "w1d4-v4", hanzi: "推荐", pinyin: "tuījiàn", vietnameseMeaning: "gợi ý / recommend", synonyms: [], exampleZh: "推荐一道菜。", exampleVi: "Gợi ý 1 món.", tags: ["food"], frequencyLevel: "high" },
+      { id: "w1d4-v4", hanzi: "推荐", pinyin: "tuījiàn", vietnameseMeaning: "gợi ý, đề xuất", synonyms: [], exampleZh: "推荐一道菜。", exampleVi: "Gợi ý 1 món đi.", tags: ["food"], frequencyLevel: "high" },
       { id: "w1d4-v5", hanzi: "不要辣", pinyin: "bù yào là", vietnameseMeaning: "không cay", synonyms: ["不辣"], exampleZh: "我不要辣。", exampleVi: "Tôi không ăn cay.", tags: ["food"], frequencyLevel: "high" },
       { id: "w1d4-v6", hanzi: "不要香菜", pinyin: "bù yào xiāngcài", vietnameseMeaning: "không rau mùi", synonyms: [], exampleZh: "不要香菜。", exampleVi: "Không rau mùi.", tags: ["food"], frequencyLevel: "high" },
       { id: "w1d4-v7", hanzi: "米饭", pinyin: "mǐfàn", vietnameseMeaning: "cơm", synonyms: [], exampleZh: "来一份米饭。", exampleVi: "Cho 1 phần cơm.", tags: ["food"], frequencyLevel: "high" },
@@ -227,7 +227,7 @@ export const week1Lessons: Lesson[] = [
     quiz: [
       { id: "w1d4-q1", type: "vi_to_zh", prompt: "Tôi không ăn cay.", answer: "我不要辣。" },
       { id: "w1d4-q2", type: "choose_pinyin", prompt: "打包", answer: "dǎbāo", options: ["dǎbāo", "dábǎo", "dàbǎo", "dāpāo"] },
-      { id: "w1d4-q3", type: "complete_sentence", prompt: "请 ___ 一道不太辣的菜。", answer: "推荐", explanationVi: "推荐 = gợi ý / recommend." },
+      { id: "w1d4-q3", type: "complete_sentence", prompt: "请 ___ 一道不太辣的菜。", answer: "推荐", explanationVi: "推荐 = gợi ý / đề xuất." },
       { id: "w1d4-q4", type: "zh_to_vi", prompt: "剩的打包，请买单。", answer: "Đồ thừa gói về, vui lòng tính tiền." },
     ],
   },
@@ -313,7 +313,7 @@ export const week1Lessons: Lesson[] = [
     ],
     sentencePatterns: [
       { id: "w1d6-s1", zh: "这剧太好看了！", pinyin: "Zhè jù tài hǎokàn le!", vi: "Phim này hay quá!" },
-      { id: "w1d6-s2", zh: "颜值在线，演员演得也好。", pinyin: "Yánzhí zài xiàn, yǎnyuán yǎn de yě hǎo.", vi: "Nhan sắc on point, diễn viên diễn cũng hay." },
+      { id: "w1d6-s2", zh: "颜值在线，演员演得也好。", pinyin: "Yánzhí zài xiàn, yǎnyuán yǎn de yě hǎo.", vi: "Diễn viên đẹp, mà diễn cũng hay." },
       { id: "w1d6-s3", zh: "我看完哭了，太心疼她了。", pinyin: "Wǒ kàn wán kū le, tài xīnténg tā le.", vi: "Tôi xem xong khóc luôn, thương cô ấy quá." },
       { id: "w1d6-s4", zh: "破防了，等下集！", pinyin: "Pòfáng le, děng xià jí!", vi: "Tan chảy luôn, đợi tập sau!" },
       { id: "w1d6-s5", zh: "你也在追这部剧吗？", pinyin: "Nǐ yě zài zhuī zhè bù jù ma?", vi: "Bạn cũng đang đuổi phim này à?" },
@@ -321,7 +321,7 @@ export const week1Lessons: Lesson[] = [
     dialogue: [
       { speaker: "Bạn", zh: "你最近在追什么剧？", pinyin: "Nǐ zuìjìn zài zhuī shénme jù?", vi: "Dạo này bạn đuổi phim gì?" },
       { speaker: "Vân Trang", zh: "我在追《知否》，太好看了！", pinyin: "Wǒ zài zhuī 《Zhī Fǒu》, tài hǎokàn le!", vi: "Tôi đang đuổi 'Tri Phủ', hay lắm!" },
-      { speaker: "Bạn", zh: "颜值在线吗？演员是谁？", pinyin: "Yánzhí zài xiàn ma? Yǎnyuán shì shéi?", vi: "Nhan sắc on point không? Diễn viên là ai?" },
+      { speaker: "Bạn", zh: "颜值在线吗？演员是谁？", pinyin: "Yánzhí zài xiàn ma? Yǎnyuán shì shéi?", vi: "Diễn viên đẹp không? Là ai đóng?" },
       { speaker: "Vân Trang", zh: "颜值绝绝子，赵丽颖演的，演技超好。", pinyin: "Yánzhí juéjuézǐ, Zhào Lìyǐng yǎn de, yǎnjì chāo hǎo.", vi: "Nhan sắc tuyệt cú mèo, Triệu Lệ Dĩnh đóng, diễn xuất siêu hay." },
       { speaker: "Bạn", zh: "我也想看了，破防了哈哈。", pinyin: "Wǒ yě xiǎng kàn le, pòfáng le hāhā.", vi: "Tôi cũng muốn xem rồi, tan chảy luôn haha." },
     ],
