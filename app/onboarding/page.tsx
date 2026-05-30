@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { VoiceSetting } from "@/components/VoiceSetting";
 import { getProfile, saveProfile } from "@/lib/storage";
 import {
   DEFAULT_USER_PROFILE,
@@ -140,6 +141,11 @@ export default function OnboardingPage() {
             onToggle={(v) => toggle("learningMethod", v)}
           />
         </Field>
+
+        {/* Chinese TTS voice picker — improves pronunciation playback. */}
+        <div className="pt-5 border-t border-hairline">
+          <VoiceSetting />
+        </div>
       </div>
 
       <div className="flex justify-end mt-8">

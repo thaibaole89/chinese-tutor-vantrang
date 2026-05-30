@@ -274,6 +274,7 @@ export function CardFirstHome() {
             { href: "/session/today", emoji: "🌅", label: "Phiên 20 phút" },
             { href: "/wechat-coach", emoji: "💬", label: "WeChat Coach" },
             { href: "/lyrics-mode", emoji: "🎵", label: "Lời bài hát" },
+            { href: "/onboarding", emoji: "⚙️", label: "Cài đặt · Giọng đọc" },
           ].map((it) => (
             <li key={it.href} className="bg-canvas">
               <Link
