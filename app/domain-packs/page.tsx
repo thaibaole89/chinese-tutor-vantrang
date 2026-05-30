@@ -7,6 +7,8 @@ import { LessonVocabulary } from "@/components/LessonVocabulary";
 import { SentencePatternList } from "@/components/SentencePatternList";
 import { SpeakButton } from "@/components/SpeakButton";
 import { VisualCard } from "@/components/VisualCard";
+import { TopicImage } from "@/components/TopicImage";
+import { visualForPack } from "@/data/visuals";
 import { upsertVocabAsFlashcards } from "@/lib/storage";
 
 type SaveResult = { added: number; total: number };
@@ -83,7 +85,12 @@ export default function DomainPacksPage() {
             return (
               <div key={pack.id} className="space-y-10">
                 <header className="border border-hairline bg-canvas overflow-hidden">
-                  {pack.visual ? <VisualCard spec={pack.visual} aspect="16/9" /> : null}
+                  {/* Photo-style topic header if available; else the CSS scene. */}
+                  {visualForPack(pack.id) ? (
+                    <TopicImage visual={visualForPack(pack.id)} heightClass="h-40 sm:h-48" />
+                  ) : pack.visual ? (
+                    <VisualCard spec={pack.visual} aspect="16/9" />
+                  ) : null}
                   <div className="p-6 space-y-3">
                     <div className="flex items-start gap-3">
                       <div className="zh text-3xl font-bold flex-1">{pack.titleZh}</div>

@@ -4,14 +4,16 @@ import { Suspense, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { RoleplayChat } from "@/components/RoleplayChat";
+import { TopicImage } from "@/components/TopicImage";
+import { topicVisuals } from "@/data/visuals";
 import { findScenario, getAllRoleplayScenarios } from "@/data/roleplayScenarios";
 
 const STARTER_SCENARIOS = [
-  { emoji: "🏨", label: "Nhận phòng khách sạn" },
-  { emoji: "🍜", label: "Gọi món nhà hàng" },
-  { emoji: "🧭", label: "Hỏi đường" },
-  { emoji: "🛍️", label: "Mua sắm" },
-  { emoji: "🆘", label: "Khẩn cấp" },
+  { emoji: "🏨", label: "Nhận phòng khách sạn", visual: topicVisuals.hotel },
+  { emoji: "🍜", label: "Gọi món nhà hàng", visual: topicVisuals.restaurant },
+  { emoji: "🧭", label: "Hỏi đường", visual: topicVisuals.metro },
+  { emoji: "🛍️", label: "Mua sắm", visual: topicVisuals.shopping },
+  { emoji: "🆘", label: "Khẩn cấp", visual: topicVisuals.emergency },
 ];
 
 /** Static, instantly-rendered fallback shown while the interactive
@@ -30,11 +32,14 @@ function RoleplayFallback() {
       </header>
       <ul className="grid grid-cols-2 sm:grid-cols-3 gap-px bg-hairline border border-hairline">
         {STARTER_SCENARIOS.map((s) => (
-          <li key={s.label} className="bg-canvas p-5 flex items-center gap-3">
-            <span className="text-xl leading-none" aria-hidden="true">
-              {s.emoji}
-            </span>
-            <span className="text-[13px] font-bold tracking-[0.3px]">{s.label}</span>
+          <li key={s.label} className="bg-canvas overflow-hidden">
+            <TopicImage visual={s.visual} heightClass="h-24" />
+            <div className="p-4 flex items-center gap-2">
+              <span className="text-lg leading-none" aria-hidden="true">
+                {s.emoji}
+              </span>
+              <span className="text-[13px] font-bold tracking-[0.3px]">{s.label}</span>
+            </div>
           </li>
         ))}
       </ul>

@@ -12,6 +12,8 @@ import {
 } from "@/lib/cardAdapter";
 import { usePinyinPreference } from "@/lib/pinyinPreference";
 import { SpeakButton } from "./SpeakButton";
+import { TopicImage } from "./TopicImage";
+import { visualForCardTopic } from "@/data/visuals";
 import { getFlashcards, upsertVocabAsFlashcards } from "@/lib/storage";
 
 /** localStorage key for saved-card IDs (separate from full flashcards). */
@@ -157,6 +159,10 @@ export function CardFirstHome() {
         </div>
       ) : (
         <div className="border border-hairline bg-canvas overflow-hidden">
+          {/* Topic illustration — modest accent above the text; Chinese stays
+              the hero. h-28 mobile / h-32 sm so it never crowds the sentence. */}
+          <TopicImage visual={visualForCardTopic(card.topic)} heightClass="h-28 sm:h-32" />
+
           {/* Header strip — topic chip + saved feedback */}
           <div className="px-5 pt-4 pb-2 flex items-center justify-between">
             <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[1.5px] text-muted">
